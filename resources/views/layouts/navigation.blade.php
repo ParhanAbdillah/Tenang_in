@@ -28,14 +28,22 @@
             class="{{ request()->routeIs('admin.dashboard.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all">
             <i class="fa-solid fa-house"></i> Dashboard
         </a>
+
         <a href="{{ route('admin.psychologist.index') }}"
-            class="{{ request()->routeIs('admin.psychologist.index*') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-gray-50">
+            class="{{ request()->routeIs('admin.psychologist.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-gray-50">
             <i class="fa-solid fa-user-doctor"></i> Data Psikolog
         </a>
+
         <a href="{{ route('admin.specialization.index') }}"
-            class="{{ request()->routeIs('admin.specialization.index*') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-gray-50">
-            <i class="fa-solid fa-user-doctor"></i> Data Spesialisasi
+            class="{{ request()->routeIs('admin.specialization.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-gray-50">
+            <i class="fa-solid fa-tags"></i> Data Spesialisasi
         </a>
+
+        {{-- <a href="{{ route('admin.psychologist.index') }}"
+            class="{{ request()->routeIs('admin.psychologist.*') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all">
+            <i class="fa-solid fa-calendar-check"></i> Jadwal Praktik
+        </a> --}}
+
         <a href="#"
             class="flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all group">
             <i class="fa-solid fa-calendar-check"></i> Transaksi Konsultasi
@@ -52,8 +60,9 @@
 
         <div class="pt-6">
             <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Added Menu</p>
-            <a href="#"
-                class="flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all">
+            
+            <a href="{{ route('admin.ai.index') }}"
+                class="{{ request()->routeIs('admin.ai.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all">
                 <i class="fa-solid fa-robot"></i> AI Engine Settings
             </a>
             <a href="#"
