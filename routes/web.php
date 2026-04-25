@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MentalHealthTestController;
 use App\Http\Controllers\Admin\PsychologistController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SettingController;
@@ -54,6 +55,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Rute untuk memproses simpan data
     Route::post('ai-settings', [SettingController::class, 'updateAiConfig'])->name('ai.update');
+
+    // Manajemen Edukasi (Tes Mental Health)
+    Route::get('/mental-health-test', [MentalHealthTestController::class, 'index'])->name('mental-health.index');
+    Route::post('/mental-health-test/category', [MentalHealthTestController::class, 'storeCategory'])->name('mental-health.category.store');
+
+    // Kelola Pertanyaan
+    Route::get('/mental-health-test/{id}/questions', [MentalHealthTestController::class, 'showQuestions'])->name('mental-health.questions');
+    Route::post('/mental-health-test/{id}/questions', [MentalHealthTestController::class, 'storeQuestion'])->name('mental-health.questions.store');
+});
+
+// --- ROUTE UNTUK USER (Bisa diakses siapa saja/Guest) ---
+Route::get('/mental-health-test/{id}', [MentalHealthTestController::class, 'showTest'])->name('user.test.show');
+
+// --- ROUTE YANG BUTUH LOGIN (Harus di dalam middleware auth) ---
+Route::middleware(['auth'])->group(function () {
+    
+    // Route UNTUK PROSES SIMPAN (POST)
+    // Pastikan URL ini sinkron dengan yang ada di atribut action form blade Anda
+    Route::post('/mental-health-test/submit', [MentalHealthTestController::class, 'storeUserResponse'])->name('mental-health.submit');
+
+    // Halaman untuk melihat hasil (GET)
+    Route::get('/mental-health-test/result/{id}', [MentalHealthTestController::class, 'showResult'])->name('user.mental-health.result');
+    
 });
 
 // Auth bawaan Laravel (Biarkan saja, tidak usah dipakai dulu)

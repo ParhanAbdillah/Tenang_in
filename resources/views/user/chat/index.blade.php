@@ -42,16 +42,7 @@
             </div>
         </div>
 
-        <div class="flex gap-4 max-w-[85%] ml-auto flex-row-reverse">
-            <div
-                class="w-8 h-8 rounded-full bg-indigo-100 flex-shrink-0 flex items-center justify-center text-indigo-600 text-xs font-bold">
-                U
-            </div>
-            <div class="bg-indigo-600 p-4 rounded-2xl rounded-tr-none shadow-md shadow-indigo-100">
-                <p class="text-sm text-white leading-relaxed">Saya merasa sangat cemas belakangan ini karena tekanan
-                    pekerjaan.</p>
-            </div>
-        </div>
+        
     </main>
 
     <footer class="bg-white p-6 border-t border-slate-100">
@@ -77,11 +68,8 @@
         const chatInput = document.getElementById('chat-input');
         const chatContainer = document.getElementById('chat-container');
 
-        console.log("Chat System: Ready");
-
         chatForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log("Tombol ditekan!");
 
             const message = chatInput.value.trim();
             if (!message) return;
@@ -98,12 +86,25 @@
             chatInput.value = '';
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // 2. Tampilkan Loading
+            // 2. Tampilkan Animasi Sedang Mengetik (Typing Indicator)
             const loadingId = 'loading-' + Date.now();
-            chatContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="text-xs italic text-slate-400 mb-4">Menghubungkan ke server...</div>`);
+            const typingBubble = `
+                <div id="${loadingId}" class="flex gap-4 max-w-[85%] mb-4 items-start">
+                    <div class="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 flex items-center justify-center text-slate-500 text-xs">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 flex gap-1 items-center">
+                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                        <span class="ml-2 text-[11px] text-slate-400 font-medium">Tenang AI sedang mengetik...</span>
+                    </div>
+                </div>`;
+            
+            chatContainer.insertAdjacentHTML('beforeend', typingBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
 
             // 3. Kirim ke Server
-            console.log("Mengirim request ke Laravel...");
             fetch("{{ route('chat.send') }}", {
                 method: "POST",
                 headers: {
@@ -117,17 +118,30 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById(loadingId).remove();
+                // Hapus indikator loading
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) loadingElement.remove();
+
+                // Tampilkan Balasan AI yang sudah diperbaiki strukturnya
                 const aiBubble = `
-                    <div class="flex gap-4 max-w-[85%] mb-4 text-sm text-slate-600 leading-relaxed bg-white p-4 rounded-2xl border border-slate-100">
-                        ${data.reply}
+                    <div class="flex gap-4 max-w-[85%] mb-4 items-start">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 flex items-center justify-center text-slate-500 text-xs">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100">
+                            <p class="text-sm text-slate-600 leading-relaxed">${data.reply}</p>
+                        </div>
                     </div>`;
+                
                 chatContainer.insertAdjacentHTML('beforeend', aiBubble);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             })
             .catch(error => {
                 console.error("Error Detail:", error);
-                document.getElementById(loadingId).innerHTML = `<span class="text-red-500 underline">Gagal: ${error.message}</span>`;
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) {
+                    loadingElement.innerHTML = `<span class="text-xs text-red-500 italic ml-12">Gagal membalas: ${error.message}</span>`;
+                }
             });
         });
     });

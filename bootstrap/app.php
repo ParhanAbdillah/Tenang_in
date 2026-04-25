@@ -14,6 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\IsAdmin::class,
         ]);
+
+        // Tambahkan ini untuk mengatur tujuan setelah login
+        $middleware->redirectTo(
+            guests: '/login',
+            users: '/mental-health-test/1', // Arahkan langsung ke halaman tes user
+        );
+        
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -53,8 +53,8 @@
             class="flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all">
             <i class="fa-solid fa-chart-line"></i> Laporan Aktivitas
         </a>
-        <a href="#"
-            class="flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all">
+        <a href="{{ route('admin.mental-health.index') }}"
+            class="{{ request()->routeIs('admin.mental-health.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all">
             <i class="fa-solid fa-newspaper"></i> Manajemen Edukasi
         </a>
 
