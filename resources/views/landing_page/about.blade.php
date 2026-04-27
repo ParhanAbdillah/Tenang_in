@@ -1,6 +1,6 @@
 <!-- --- HERO SECTION --- -->
 
-<x-app-layout>
+<x-guest-layout>
     @include('landing_page.style')
     @include('landing_page.navbar')
     <section class="relative pt-32 pb-20 overflow-hidden hero-gradient">
@@ -130,4 +130,4 @@
     </section>
     @include('landing_page.footer')
     @include('landing_page.script')
-</x-app-layout>
+</x-guest-layout>

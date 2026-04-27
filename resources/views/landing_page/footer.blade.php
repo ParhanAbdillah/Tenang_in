@@ -1,84 +1,61 @@
-<footer class="footer-bg">
-        <!-- Gelombang yang diperhalus: Menggunakan kurva asimetris yang mulus -->
-        <div class="wave-top">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
-                preserveAspectRatio="none">
-                <path d="M0,0 C300,20 400,100 600,100 C800,100 900,20 1200,60 L1200,120 L0,120 Z" class="shape-fill">
-                </path>
-            </svg>
+<footer class="relative bg-[#0A4D68] pt-20 pb-10 text-white">
+    <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform -translate-y-full">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none" class="relative block w-full h-[100px]">
+            <path fill="#0A4D68" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,144C672,139,768,181,864,186.7C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div>
+            <h4 class="font-bold text-lg mb-6">Lokasi</h4>
+            <ul class="space-y-4 text-sm text-blue-100">
+                <li>Jakarta Selatan</li>
+                <li>Bandung</li>
+                <li>Yogyakarta <span class="ml-2 bg-gray-500/50 text-[10px] px-2 py-1 rounded">Soon</span></li>
+                <li>Surabaya <span class="ml-2 bg-gray-500/50 text-[10px] px-2 py-1 rounded">Soon</span></li>
+                <li>Bali</li>
+            </ul>
         </div>
 
-        <div class="max-w-7xl mx-auto px-6 pt-24 pb-12">
-            <!-- Grid Navigasi Footer -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-
-                <!-- Lokasi -->
-                <div>
-                    <h4 class="text-white font-bold mb-8">Lokasi</h4>
-                    <ul class="space-y-4 text-sm">
-                        <li><a href="#" class="footer-link">Tasikmalaya</a></li>
-                        <li><a href="#" class="footer-link">Bandung</a></li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-white/40">Jakarta</span>
-                            <span class="badge-soon">Soon</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-white/40">Bogor</span>
-                            <span class="badge-soon">Soon</span>
-                        </li>
-                        <li><a href="#" class="footer-link">Cirbeon</a></li>
-                    </ul>
-                </div>
-
-                <!-- Layanan -->
-                <div>
-                    <h4 class="text-white font-bold mb-8">Layanan</h4>
-                    <ul class="space-y-4 text-sm">
-                        <li><a href="#" class="footer-link">Konseling Individu</a></li>
-                        <li><a href="#" class="footer-link">Konseling Pasangan</a></li>
-                        <li><a href="#" class="footer-link">Konseling Keluarga</a></li>
-                        <li><a href="#" class="footer-link">Konseling Online</a></li>
-                        <li><a href="#" class="footer-link">Konseling Offline</a></li>
-                        <li><a href="#" class="footer-link">Konseling Gratis</a></li>
-                        <li><a href="#" class="footer-link">Mood Tracker</a></li>
-                    </ul>
-                </div>
-
-                <!-- Kenali Kami -->
-                <div>
-                    <h4 class="text-white font-bold mb-8">Kenali Kami</h4>
-                    <ul class="space-y-4 text-sm">
-                        <li><a href="#" class="footer-link">Tentang Kami</a></li>
-                        <li><a href="#" class="footer-link">FAQ</a></li>
-                        <li><a href="#" class="footer-link">Bantuan</a></li>
-                        <li><a href="#" class="footer-link">Hubungi Kami</a></li>
-                        <li><a href="#" class="footer-link">Daftar Psikolog</a></li>
-                    </ul>
-                </div>
-
-                <!-- Lainnya -->
-                <div>
-                    <h4 class="text-white font-bold mb-8">Lainnya</h4>
-                    <ul class="space-y-5 text-sm">
-                        <li><a href="#" class="footer-link block leading-relaxed">Artikel Kesehatan
-                                Mental</a></li>
-                        <li><a href="#" class="footer-link block leading-relaxed">Tes Psikologi Gratis Ai</a>
-                        </li>
-                        <li><a href="#" class="footer-link block leading-relaxed">Tes Kesehatan Mental
-                                Online</a></li>
-                        <li><a href="#" class="footer-link block leading-relaxed">Menggali Minat dan Bakat
-                                Anak...</a></li>
-                        <li><a href="#" class="footer-link block leading-relaxed">Micro Cheating: Deteksi
-                                Ancaman...</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Copyright -->
-            <div class="mt-24 pt-8 border-t border-white/5 text-center">
-                <p class="text-white/20 text-[10px] tracking-[0.2em] uppercase">
-                    © 2026 Tenang-in. All rights reserved.
-                </p>
-            </div>
+        <div>
+            <h4 class="font-bold text-lg mb-6">Layanan</h4>
+            <ul class="space-y-4 text-sm text-blue-100">
+                <li><a href="#" class="hover:text-white transition">Konseling Individu</a></li>
+                <li><a href="#" class="hover:text-white transition">Konseling Pasangan</a></li>
+                <li><a href="#" class="hover:text-white transition">Konseling Keluarga</a></li>
+                <li><a href="#" class="hover:text-white transition">Konseling Online</a></li>
+                <li><a href="#" class="hover:text-white transition">Konseling Offline</a></li>
+                <li><a href="#" class="hover:text-white transition">Konseling Gratis</a></li>
+                <li><a href="#" class="hover:text-white transition">Mental Health Check Up</a></li>
+            </ul>
         </div>
-    </footer>
+
+        <div>
+            <h4 class="font-bold text-lg mb-6">Kenali Kami</h4>
+            <ul class="space-y-4 text-sm text-blue-100">
+                <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
+                <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+                <li><a href="#" class="hover:text-white transition">Bantuan</a></li>
+                <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
+                <li><a href="#" class="hover:text-white transition">Partnership</a></li>
+                <li><a href="#" class="hover:text-white transition">Daftar Psikolog</a></li>
+                <li><a href="#" class="hover:text-white transition">Karir</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-lg mb-6">Lainnya</h4>
+            <ul class="space-y-4 text-sm text-blue-100">
+                <li><a href="#" class="hover:text-white transition">Artikel Kesehatan Mental</a></li>
+                <li><a href="#" class="hover:text-white transition">Tes Psikologi Gratis</a></li>
+                <li><a href="#" class="hover:text-white transition">Tes Kesehatan Mental Online</a></li>
+                <li><a href="#" class="hover:text-white transition">WellMe by Tenang-in</a></li>
+                <li><a href="#" class="hover:text-white transition">Menggali Minat dan Bakat Anak</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-white/10 text-center text-xs text-blue-200/50">
+        <p>&copy; 2026 Tenang-in. Seluruh Hak Cipta Dilindungi.</p>
+    </div>
+</footer>

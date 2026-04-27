@@ -14,12 +14,12 @@ class IsAdmin
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
-        // Cek apakah user sudah login dan memiliki role admin
-        if ($request->user() && $request->user()->role === 'admin') {
-            return $next($request);
-        }
-
-        return redirect('/dashboard')->with('error', 'Anda tidak memiliki akses admin.');
+{
+    if ($request->user() && $request->user()->role === 'admin') {
+        return $next($request);
     }
+
+    // Ubah '/dashboard' menjadi '/' atau '/login'
+   return redirect()->route('admin.dashboard.index')->with('error', 'Anda tidak memiliki akses admin.');
+}
 }

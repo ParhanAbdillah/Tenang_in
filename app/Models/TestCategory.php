@@ -14,6 +14,6 @@ class TestCategory extends Model
     // Relasi: Satu kategori punya banyak pertanyaan
     public function questions()
     {
-        return $this->hasMany(TestQuestion::class);
+        return $this->hasMany(TestQuestion::class, 'test_category_id');
     }
 }

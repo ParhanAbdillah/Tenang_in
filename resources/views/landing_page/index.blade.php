@@ -1,229 +1,171 @@
-<x-app-layout>
+<x-guest-layout>
     @include('landing_page.style')
-    <!-- --- SECTION 1: HEADER & HERO CAROUSEL --- -->
-    <section class="relative overflow-hidden hero-gradient pb-24 pt-6 min-h-[750px]">
+    @include('landing_page.navbar')
 
-        <!-- --- NAVBAR KAPSUL --- -->
-        @include('landing_page.navbar')
-        <div class="h-24"></div>
-
-        <!-- --- CAROUSEL SLIDING WRAPPER --- -->
-        <div class="overflow-hidden">
-            <div id="carousel-track" class="carousel-container">
-
-                <!-- Slide 1 -->
-                <div class="carousel-slide mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center relative z-10">
-                    <div class="w-full md:w-3/5 text-[#4A5568] text-center md:text-left mb-16 md:mb-0">
-                        <p class="text-sm font-bold mb-4 text-[#5F7A61] uppercase tracking-[0.2em]">Healing & Ketenangan
-                        </p>
-                        <h1 class="text-4xl md:text-6xl font-bold leading-[1.1] mb-8">
-                            Temukan Keseimbangan<br />
-                            <span class="text-[#5F7A61] serif-italic font-normal italic">Emosi di Masa Sulit</span>
+    <div class="swiper heroSwiper w-full pt-24">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide bg-[#0A4D68] text-white min-h-[500px] flex items-center overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center py-16">
+                    <div class="z-10 text-left">
+                        <h2 class="text-xl md:text-2xl font-light italic mb-4">Mengenal Lebih Dekat</h2>
+                        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                            Membangun Ekosistem <br>
+                            <span class="text-[#A0AEC0] italic font-normal serif">Kesehatan Mental</span> yang Inklusif
                         </h1>
-                        <p class="text-lg text-[#718096] mb-10 max-w-lg leading-relaxed">
-                            Webinar khusus: Memaafkan Orang Tua NPD tanpa mengorbankan ketenangan batin Anda sendiri.
+                        <p class="text-lg opacity-90 mb-8 max-w-lg">
+                            Tenang-in hadir sebagai teman perjalananmu dalam memahami diri, mengatasi luka, dan
+                            menemukan kembali kebahagiaan.
                         </p>
-                        <div class="flex items-center space-x-4 mb-10 justify-center md:justify-start">
-                            <div class="bg-white/40 p-4 rounded-2xl glass-card text-center min-w-[120px]">
-                                <p class="text-[10px] font-bold uppercase text-[#5F7A61] mb-1">Investasi</p>
-                                <p class="text-xl font-bold">Rp119k</p>
-                            </div>
-                            <div class="h-12 w-[1px] bg-[#CBD5E0]"></div>
-                            <p class="text-sm font-medium text-[#718096]">Live via Zoom<br>Minggu, 26 April 2026</p>
-                        </div>
-                        <button
-                            class="btn-zen-primary text-white px-12 py-5 rounded-full text-lg font-bold shadow-lg shadow-[#5F7A61]/20">
-                            Daftar Sesi Sekarang
-                        </button>
+                        <a href="#"
+                            class="bg-[#D98324] hover:bg-[#b56d1d] text-white px-8 py-4 rounded-full font-bold transition-all inline-block">
+                            Konseling di Tenang-in
+                        </a>
                     </div>
-                    <div class="w-full md:w-2/5 flex justify-center relative">
-                        <div class="absolute inset-0 bg-[#5F7A61]/10 blur-[120px] rounded-full"></div>
-                        <div class="relative p-4">
-                            <div
-                                class="absolute inset-0 border-2 border-[#5F7A61]/20 rounded-t-full translate-x-3 translate-y-3">
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600"
-                                alt="Psikolog"
-                                class="w-full max-w-sm rounded-t-full shadow-2xl grayscale-[20%] transition-all duration-700">
+                    <div class="relative hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80"
+                            alt="Psikolog Tenang-in"
+                            class="rounded-2xl shadow-2xl relative z-10 w-full h-[400px] object-cover">
+                        <div
+                            class="absolute -bottom-6 -right-6 w-64 h-64 bg-[#A0AEC0] opacity-20 rounded-full blur-3xl">
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Slide 2 -->
-                <div class="carousel-slide mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center relative z-10">
-                    <div class="w-full md:w-3/5 text-[#4A5568] text-center md:text-left mb-16 md:mb-0">
-                        <p class="text-sm font-bold mb-4 text-[#5F7A61] uppercase tracking-[0.2em]">Ruang Aman Konseling
-                        </p>
-                        <h1 class="text-4xl md:text-6xl font-bold leading-[1.1] mb-8">
-                            Privasi & Kepercayaan<br />
-                            <span class="text-[#5F7A61] serif-italic font-normal italic">Adalah Prioritas Kami</span>
+            <div class="swiper-slide bg-[#083344] text-white min-h-[500px] flex items-center">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center py-16">
+                    <div class="z-10 text-left">
+                        <h2 class="text-xl md:text-2xl font-light italic mb-4">Mengenal Lebih Dekat</h2>
+                        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                            Membangun Ekosistem <br>
+                            <span class="text-[#A0AEC0] italic font-normal serif">Kesehatan Mental</span> yang Inklusif
                         </h1>
-                        <p class="text-lg text-[#718096] mb-10 max-w-lg leading-relaxed">
-                            Bicarakan kecemasan Anda dengan praktisi berlisensi dalam suasana yang tenang dan tanpa
-                            penghakiman.
+                        <p class="text-lg opacity-90 mb-8 max-w-lg">
+                            Tenang-in hadir sebagai teman perjalananmu dalam memahami diri, mengatasi luka, dan
+                            menemukan kembali kebahagiaan.
                         </p>
-                        <button
-                            class="bg-[#4A5568] hover:bg-[#2D3748] text-white px-12 py-5 rounded-full text-lg font-bold shadow-lg transition-all">
-                            Pilih Psikolog Anda
-                        </button>
+                        <a href="#"
+                            class="bg-[#D98324] hover:bg-[#b56d1d] text-white px-8 py-4 rounded-full font-bold transition-all inline-block">
+                            Konseling di Tenang-in
+                        </a>
                     </div>
-                    <div class="w-full md:w-2/5 flex justify-center relative">
-                        <div class="absolute inset-0 bg-[#4A5568]/10 blur-[120px] rounded-full"></div>
-                        <div class="relative p-4">
-                            <div
-                                class="absolute inset-0 border-2 border-[#4A5568]/20 rounded-t-full translate-x-3 translate-y-3">
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=600"
-                                alt="Sesi Konseling" class="w-full max-w-sm rounded-t-full shadow-2xl">
+                    <div class="relative hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80"
+                            alt="Psikolog Tenang-in"
+                            class="rounded-2xl shadow-2xl relative z-10 w-full h-[400px] object-cover">
+                        <div
+                            class="absolute -bottom-6 -right-6 w-64 h-64 bg-[#A0AEC0] opacity-20 rounded-full blur-3xl">
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next !text-white/50 after:!text-2xl"></div>
+        <div class="swiper-button-prev !text-white/50 after:!text-2xl"></div>
+    </div>
 
-        <!-- Carousel Dots -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex space-x-4 z-20">
-            <button onclick="goToSlide(0)" id="dot-0"
-                class="dot active-dot w-3 h-2 bg-gray-300 rounded-full transition-all duration-500"></button>
-            <button onclick="goToSlide(1)" id="dot-1"
-                class="dot w-3 h-2 bg-gray-300 rounded-full transition-all duration-500"></button>
-        </div>
-    </section>
-
-    <!-- --- SECTION 2: STATS --- -->
-    <section class="relative -mt-12 mx-auto max-w-7xl px-6 z-30 mb-20">
-        <div
-            class="bg-white/90 backdrop-blur-md rounded-[48px] shadow-xl shadow-[#5F7A61]/5 p-12 md:p-16 flex flex-wrap justify-between items-center text-center border border-white">
-            <div class="w-full sm:w-1/2 md:w-1/4 mb-10 md:mb-0 px-4 border-r-0 md:border-r border-[#EDF2F0]">
-                <div class="text-4xl font-bold text-[#5F7A61] mb-2">2.5jt+</div>
-                <p class="text-[11px] text-[#A0AEC0] font-bold uppercase tracking-widest leading-relaxed">Kisah
-                    Yang<br>Telah Pulih</p>
+    <section
+        class="bg-white py-12 -mt-10 relative z-20 mx-6 rounded-[32px] shadow-xl border border-gray-100 max-w-7xl xl:mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-gray-100">
+            <div class="text-center px-4">
+                <h3 class="text-3xl md:text-4xl font-bold text-[#D98324] mb-1">2.5 Juta+</h3>
+                <p class="text-xs text-gray-500 leading-tight">Cerita telah dipercayakan kepada Tenang-in</p>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/4 mb-10 md:mb-0 px-4 border-r-0 md:border-r border-[#EDF2F0]">
-                <div class="text-4xl font-bold text-[#5F7A61] mb-2">100+</div>
-                <p class="text-[11px] text-[#A0AEC0] font-bold uppercase tracking-widest leading-relaxed">
-                    Psikolog<br>Berlisensi</p>
+            <div class="text-center px-4">
+                <h3 class="text-3xl md:text-4xl font-bold text-[#D98324] mb-1">100+</h3>
+                <p class="text-xs text-gray-500 leading-tight">Praktisi profesional berlisensi dan beragam keahlian</p>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/4 mb-10 sm:mb-0 px-4 border-r-0 md:border-r border-[#EDF2F0]">
-                <div class="text-4xl font-bold text-[#5F7A61] mb-2">98%</div>
-                <p class="text-[11px] text-[#A0AEC0] font-bold uppercase tracking-widest leading-relaxed">
-                    Tingkat<br>Kepercayaan</p>
+            <div class="text-center px-4">
+                <h3 class="text-3xl md:text-4xl font-bold text-[#D98324] mb-1">98%</h3>
+                <p class="text-xs text-gray-500 leading-tight">User merasa puas setelah konseling bersama kami</p>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/4 px-4">
-                <div class="text-4xl font-bold text-[#5F7A61] mb-2">60%</div>
-                <p class="text-[11px] text-[#A0AEC0] font-bold uppercase tracking-widest leading-relaxed">Klien
-                    Yang<br>Kembali Sesi</p>
+            <div class="text-center px-4">
+                <h3 class="text-3xl md:text-4xl font-bold text-[#D98324] mb-1">60%</h3>
+                <p class="text-xs text-gray-500 leading-tight">User rutin konseling kembali setiap bulannya</p>
             </div>
         </div>
     </section>
 
+    {{-- Section ke 3 --}}
 
-    <!-- Section Container 3 -->
-    <section class="py-20 px-6 bg-[#E4EBE9]">
-        <div class="max-w-6xl mx-auto">
+    <section class="py-20 bg-[#F8FAFC]">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#0A4D68] mb-4">Layanan Konseling Tenang-in</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto mb-16">
+                Temukan dukungan dan pemahaman di setiap langkah perjalanan kesehatan mentalmu bersama Tenang-in.
+            </p>
 
-            <!-- Header Section -->
-            <div class="text-center mb-16">
-                <span class="text-[#3385AF] font-semibold tracking-widest uppercase text-sm mb-3 block">Layanan
-                    Kami</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-[#1E4D6B] mb-5">
-                    Layanan Konseling Tenang-in
-                </h2>
-                <p class="text-gray-500 max-w-xl mx-auto leading-relaxed text-sm md:text-base">
-                    Temukan dukungan profesional yang dipersonalisasi untuk setiap tahap perjalanan kesehatan mental
-                    Anda.
-                </p>
-            </div>
+            <div class="grid md:grid-cols-3 gap-8">
 
-            <!-- Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- Card 1: Individual -->
                 <div
-                    class="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 card-transition hover:bg-[#0A3D5A] hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full">
-                    <div class="h-48 overflow-hidden">
-                        <img src="{{ asset('img/individual.jpg') }}"
-                            alt="[Gambar Konseling Individual]"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    class="group bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl hover:bg-[#0A4D68] transition-all duration-500 border border-gray-100 flex flex-col h-full">
+                    <div class="p-4">
+                        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80"
+                            alt="Individual" class="w-full h-56 object-cover rounded-[24px]">
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-[#1E4D6B] group-hover:text-white transition-colors">
+                    <div class="p-8 flex-grow flex flex-col items-center">
+                        <h3
+                            class="text-2xl font-bold text-[#0A4D68] group-hover:text-white transition-colors duration-300 mb-4">
                             Individual</h3>
                         <p
-                            class="text-gray-500 group-hover:text-gray-300 transition-colors mb-6 leading-relaxed text-sm">
-                            Konseling privat antara individu bersama Psikolog baik tatap muka maupun online durasi
-                            60 menit.
+                            class="text-gray-500 group-hover:text-gray-200 transition-colors duration-300 text-sm leading-relaxed mb-8">
+                            Konseling yang dilakukan antara individu bersama Psikolog baik secara tatap muka ataupun
+                            online dengan durasi 60 menit/sesi.
                         </p>
                         <div class="mt-auto">
-                            <button
-                                class="w-full bg-[#3385AF] group-hover:bg-[#E68A2E] text-white font-semibold py-2.5 px-4 rounded-lg inline-flex items-center justify-center text-sm transition-all duration-300">
-                                Mulai Konseling
-                                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </button>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 bg-[#4392B3] group-hover:bg-[#D98324] text-white px-8 py-3 rounded-full font-bold text-sm transition-all duration-300">
+                                Mulai Konseling <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 2: Couple -->
                 <div
-                    class="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 card-transition hover:bg-[#0A3D5A] hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full">
-                    <div class="h-48 overflow-hidden">
-                        <img src="{{ asset('img/couple.jpg') }}"
-                            alt="[Gambar Konseling Pasangan]"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    class="group bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl hover:bg-[#0A4D68] transition-all duration-500 border border-gray-100 flex flex-col h-full">
+                    <div class="p-4">
+                        <img src="https://images.unsplash.com/photo-1516589174184-c68526614480?auto=format&fit=crop&q=80"
+                            alt="Couple" class="w-full h-56 object-cover rounded-[24px]">
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-[#1E4D6B] group-hover:text-white transition-colors">
+                    <div class="p-8 flex-grow flex flex-col items-center">
+                        <h3
+                            class="text-2xl font-bold text-[#0A4D68] group-hover:text-white transition-colors duration-300 mb-4">
                             Couple</h3>
                         <p
-                            class="text-gray-500 group-hover:text-gray-300 transition-colors mb-6 leading-relaxed text-sm">
-                            Sesi bersama pasangan untuk memperkuat hubungan, tersedia secara tatap muka maupun
-                            online.
+                            class="text-gray-500 group-hover:text-gray-200 transition-colors duration-300 text-sm leading-relaxed mb-8">
+                            Konseling dengan Psikolog yang dilakukan antara pasangan, baik yang sudah menikah maupun
+                            belum menikah secara tatap muka ataupun online.
                         </p>
                         <div class="mt-auto">
-                            <button
-                                class="w-full bg-[#3385AF] group-hover:bg-[#E68A2E] text-white font-semibold py-2.5 px-4 rounded-lg inline-flex items-center justify-center text-sm transition-all duration-300">
-                                Mulai Konseling
-                                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </button>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 bg-[#4392B3] group-hover:bg-[#D98324] text-white px-8 py-3 rounded-full font-bold text-sm transition-all duration-300">
+                                Mulai Konseling <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 3: Family -->
                 <div
-                    class="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 card-transition hover:bg-[#0A3D5A] hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full">
-                    <div class="h-48 overflow-hidden">
-                        <img src="{{ asset('img/family.jpg') }}"
-                            alt="[Gambar Konseling Keluarga]"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    class="group bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-2xl hover:bg-[#0A4D68] transition-all duration-500 border border-gray-100 flex flex-col h-full">
+                    <div class="p-4">
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&q=80"
+                            alt="Family" class="w-full h-56 object-cover rounded-[24px]">
                     </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-[#1E4D6B] group-hover:text-white transition-colors">
+                    <div class="p-8 flex-grow flex flex-col items-center">
+                        <h3
+                            class="text-2xl font-bold text-[#0A4D68] group-hover:text-white transition-colors duration-300 mb-4">
                             Family</h3>
                         <p
-                            class="text-gray-500 group-hover:text-gray-300 transition-colors mb-6 leading-relaxed text-sm">
-                            Membangun harmonisasi keluarga melalui bimbingan psikolog profesional secara tatap muka.
+                            class="text-gray-500 group-hover:text-gray-200 transition-colors duration-300 text-sm leading-relaxed mb-8">
+                            Konseling bersama Psikolog yang melibatkan dua atau lebih anggota keluarga dan dilakukan
+                            secara tatap muka dengan durasi 60 menit/sesi.
                         </p>
                         <div class="mt-auto">
-                            <button
-                                class="w-full bg-[#3385AF] group-hover:bg-[#E68A2E] text-white font-semibold py-2.5 px-4 rounded-lg inline-flex items-center justify-center text-sm transition-all duration-300">
-                                Hubungi Admin
-                                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                </svg>
-                            </button>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 bg-[#4392B3] group-hover:bg-[#D98324] text-white px-8 py-3 rounded-full font-bold text-sm transition-all duration-300">
+                                Hubungi Admin <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -231,206 +173,279 @@
             </div>
         </div>
     </section>
-
-    <!-- Section Container 4 -->
-    <section class="py-20 px-6 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-
-            <!-- Header Section -->
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#1E4D6B] leading-tight">
-                    <span class="text-[#E68A2E]">Apapun masalahmu,</span><br>
-                    psikolog Tenang-in siap mendengarkan!
+    {{-- section ke 4 --}}
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-[#D98324] font-bold text-3xl md:text-4xl mb-4">
+                    Apapun masalahmu, <br>
+                    <span class="text-[#0A4D68]">psikolog Tenang-in siap mendengarkan!</span>
                 </h2>
-                <p class="text-gray-500 mt-6 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
-                    Kamu bisa bebas memilih psikolog berlisensi sesuai preferensi, pengalaman, serta topik keahlian
-                    yang sesuai dengan kebutuhanmu.
+                <p class="text-gray-500 max-w-2xl mx-auto text-sm">
+                    Kamu bisa bebas memilih psikolog berlisensi sesuai preferensi, pengalaman, serta topik keahlian yang
+                    sesuai dengan kebutuhanmu.
                 </p>
             </div>
 
-            <!-- Carousel Wrapper -->
-            <div class="relative group">
-                <!-- Carousel Container -->
-                <div id="psychologistCarousel"
-                    class="flex overflow-x-auto gap-6 no-scrollbar snap-x snap-mandatory py-4 px-2">
-
-                    <!-- Card Psikolog 1 -->
-                    <div
-                        class="min-w-[300px] md:min-w-[400px] snap-center bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-4 mb-6">
-                            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=200&auto=format&fit=crop"
-                                alt="Psikolog" class="w-16 h-16 rounded-full object-cover border-2 border-[#3385AF]">
-                            <div class="flex-1">
-                                <span class="text-[#3385AF] text-xs font-semibold block uppercase">Psikolog
-                                    Pendidikan</span>
-                                <h4 class="text-[#1E4D6B] font-bold text-lg leading-tight">Maria Rayna Kartika
-                                    Winata, M.Psi., Psikolog</h4>
+            <div class="swiper psikologSwiper pb-16">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm h-full">
+                            <div class="flex items-center gap-5 mb-6">
+                                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80"
+                                    class="w-20 h-20 rounded-full object-cover border-2 border-gray-50 shadow-sm"
+                                    alt="Psikolog">
+                                <div>
+                                    <p class="text-[#4392B3] text-xs font-bold uppercase tracking-wide">Psikolog Klinis
+                                        Dewasa</p>
+                                    <h3 class="text-[#0A4D68] font-bold text-lg leading-tight">Rachmi Windicha Fitri.,
+                                        M.Psi., Psikolog., CHt</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex gap-6 mb-6 text-sm text-gray-500">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#3385AF]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
-                                </svg>
-                                600+ Sesi
+                            <div class="flex gap-8 mb-8 text-sm text-gray-500">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-user-friends text-[#D98324]"></i> 0+ Sesi
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-briefcase text-[#D98324]"></i> 0 - 2 Tahun
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#E68A2E]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 011 1v1H4V7zM4 9h12v7a1 1 0 01-1 1H5a1 1 0 01-1-1V9z">
-                                    </path>
-                                </svg>
-                                4 - 10 Tahun
-                            </div>
-                        </div>
-                        <div class="pt-4 border-t border-gray-100">
-                            <p class="text-xs text-gray-400 font-medium mb-3">Jadwal Terdekat Besok</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="bg-[#F0F7FB] text-[#3385AF] text-xs font-bold py-2 px-3 rounded-lg border border-[#DCEEF8]">09:00
-                                    - 10:00 <span class="text-gray-400 font-normal">(online)</span></span>
+                            <div class="pt-6 border-t border-gray-50">
+                                <p class="text-[10px] font-extrabold text-gray-400 mb-4 uppercase tracking-[0.1em]">
+                                    Jadwal Terdekat Besok</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="bg-red-50 text-red-500 text-[11px] px-4 py-2 rounded-full font-bold">09:00
+                                        - 10:00 (offline)</span>
+                                    <span
+                                        class="bg-green-50 text-green-500 text-[11px] px-4 py-2 rounded-full font-bold">19:45
+                                        - 20:45 (online)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card Psikolog 2 -->
-                    <div
-                        class="min-w-[300px] md:min-w-[400px] snap-center bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-4 mb-6">
-                            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=200&auto=format&fit=crop"
-                                alt="Psikolog" class="w-16 h-16 rounded-full object-cover border-2 border-[#3385AF]">
-                            <div class="flex-1">
-                                <span class="text-[#3385AF] text-xs font-semibold block uppercase">Psikolog Klinis
-                                    Umum</span>
-                                <h4 class="text-[#1E4D6B] font-bold text-lg leading-tight">Pamela Andari Priyudha,
-                                    M.Psi., Psikolog</h4>
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm h-full">
+                            <div class="flex items-center gap-5 mb-6">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80"
+                                    class="w-20 h-20 rounded-full object-cover border-2 border-gray-50 shadow-sm"
+                                    alt="Psikolog">
+                                <div>
+                                    <p class="text-[#4392B3] text-xs font-bold uppercase tracking-wide">Psikolog
+                                        Pendidikan</p>
+                                    <h3 class="text-[#0A4D68] font-bold text-lg leading-tight">Maria Rayna Kartika
+                                        Winata, M.Psi., Psikolog</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex gap-6 mb-6 text-sm text-gray-500">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#3385AF]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
-                                </svg>
-                                300+ Sesi
+                            <div class="flex gap-8 mb-8 text-sm text-gray-500">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-user-friends text-[#D98324]"></i> 600+ Sesi
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-briefcase text-[#D98324]"></i> 4 - 10 Tahun
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#E68A2E]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 011 1v1H4V7zM4 9h12v7a1 1 0 01-1 1H5a1 1 0 01-1-1V9z">
-                                    </path>
-                                </svg>
-                                4 - 10 Tahun
-                            </div>
-                        </div>
-                        <div class="pt-4 border-t border-gray-100">
-                            <p class="text-xs text-gray-400 font-medium mb-3">Jadwal Terdekat Besok</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="bg-[#F0F7FB] text-[#3385AF] text-xs font-bold py-2 px-3 rounded-lg border border-[#DCEEF8]">09:00
-                                    - 10:00 <span class="text-gray-400 font-normal">(online)</span></span>
+                            <div class="pt-6 border-t border-gray-50">
+                                <p class="text-[10px] font-extrabold text-gray-400 mb-4 uppercase tracking-[0.1em]">
+                                    Jadwal Terdekat Besok</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="bg-green-50 text-green-500 text-[11px] px-4 py-2 rounded-full font-bold">09:00
+                                        - 10:00 (online)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card Psikolog 3 -->
-                    <div
-                        class="min-w-[300px] md:min-w-[400px] snap-center bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-4 mb-6">
-                            <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?q=80&w=200&auto=format&fit=crop"
-                                alt="Psikolog" class="w-16 h-16 rounded-full object-cover border-2 border-[#3385AF]">
-                            <div class="flex-1">
-                                <span class="text-[#3385AF] text-xs font-semibold block uppercase">Psikolog Klinis
-                                    Dewasa</span>
-                                <h4 class="text-[#1E4D6B] font-bold text-lg leading-tight">Distyana Dahlia, M.Psi.,
-                                    Psikolog</h4>
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm h-full">
+                            <div class="flex items-center gap-5 mb-6">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80"
+                                    class="w-20 h-20 rounded-full object-cover border-2 border-gray-50 shadow-sm"
+                                    alt="Psikolog">
+                                <div>
+                                    <p class="text-[#4392B3] text-xs font-bold uppercase tracking-wide">Psikolog Klinis
+                                        Dewasa</p>
+                                    <h3 class="text-[#0A4D68] font-bold text-lg leading-tight">Farhan Fadilah, M.Psi.,
+                                        Psikolog</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex gap-6 mb-6 text-sm text-gray-500">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#3385AF]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
-                                </svg>
-                                400+ Sesi
+                            <div class="flex gap-8 mb-8 text-sm text-gray-500">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-user-friends text-[#D98324]"></i> 0+ Sesi
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-briefcase text-[#D98324]"></i> 2 - 4 Tahun
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#E68A2E]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 011 1v1H4V7zM4 9h12v7a1 1 0 01-1 1H5a1 1 0 01-1-1V9z">
-                                    </path>
-                                </svg>
-                                > 10 Tahun
-                            </div>
-                        </div>
-                        <div class="pt-4 border-t border-gray-100">
-                            <p class="text-xs text-gray-400 font-medium mb-3">Jadwal Terdekat Besok</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="bg-[#F0F7FB] text-[#3385AF] text-xs font-bold py-2 px-3 rounded-lg border border-[#DCEEF8]">09:00
-                                    - 10:00 <span class="text-gray-400 font-normal">(online)</span></span>
+                            <div class="pt-6 border-t border-gray-50">
+                                <p class="text-[10px] font-extrabold text-gray-400 mb-4 uppercase tracking-[0.1em]">
+                                    Jadwal Terdekat Besok</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="bg-green-50 text-green-500 text-[11px] px-4 py-2 rounded-full font-bold">20:30
+                                        - 21:30 (online)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Card Psikolog 4 -->
-                    <div
-                        class="min-w-[300px] md:min-w-[400px] snap-center bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-4 mb-6">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
-                                alt="Psikolog" class="w-16 h-16 rounded-full object-cover border-2 border-[#3385AF]">
-                            <div class="flex-1">
-                                <span class="text-[#3385AF] text-xs font-semibold block uppercase">Psikolog Anak &
-                                    Remaja</span>
-                                <h4 class="text-[#1E4D6B] font-bold text-lg leading-tight">Sarah Amelia, M.Psi.,
-                                    Psikolog</h4>
-                            </div>
-                        </div>
-                        <div class="flex gap-6 mb-6 text-sm text-gray-500">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#3385AF]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
-                                </svg>
-                                250+ Sesi
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#E68A2E]" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 011 1v1H4V7zM4 9h12v7a1 1 0 01-1 1H5a1 1 0 01-1-1V9z">
-                                    </path>
-                                </svg>
-                                5 Tahun
-                            </div>
-                        </div>
-                        <div class="pt-4 border-t border-gray-100">
-                            <p class="text-xs text-gray-400 font-medium mb-3">Jadwal Terdekat Besok</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="bg-[#F0F7FB] text-[#3385AF] text-xs font-bold py-2 px-3 rounded-lg border border-[#DCEEF8]">13:00
-                                    - 14:00 <span class="text-gray-400 font-normal">(online)</span></span>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
-                <!-- Navigation Bars (Indicator Garis sesuai referensi) -->
-                <div class="flex justify-center gap-2 mt-10">
-                    <button onclick="scrollToIndex(0)"
-                        class="nav-bar w-8 h-1.5 rounded-full bg-[#0A3D5A] transition-all duration-300"></button>
-                    <button onclick="scrollToIndex(1)"
-                        class="nav-bar w-8 h-1.5 rounded-full bg-gray-300 transition-all duration-300"></button>
-                    <button onclick="scrollToIndex(2)"
-                        class="nav-bar w-8 h-1.5 rounded-full bg-gray-300 transition-all duration-300"></button>
-                    <button onclick="scrollToIndex(3)"
-                        class="nav-bar w-8 h-1.5 rounded-full bg-gray-300 transition-all duration-300"></button>
-                </div>
+                <div class="swiper-pagination !bottom-0 custom-line-pagination"></div>
             </div>
         </div>
     </section>
 
-    <!-- Konten Atas (Placeholders) -->
-    <div class="h-40 bg-white"></div>
+    {{-- Section ke 5 --}}
 
-    <!-- Footer Area -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-[#D98324] font-bold text-3xl md:text-4xl mb-4">
+                    Kata mereka yang telah berproses <br>
+                    <span class="text-[#0A4D68]">bersama Tenang-in</span>
+                </h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-sm">
+                    Kisah #PejuangKesehatanMental yang sudah menggunakan layanan Tenang-in. Kamu juga bisa seperti
+                    mereka, karena ceritamu layak didengar.
+                </p>
+            </div>
+
+            <div class="swiper ulasanSwiper pb-16">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide h-auto">
+                        <div
+                            class="card-ulasan bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm h-full transition-all duration-500 group">
+                            <div class="mb-4">
+                                <h4 class="font-bold text-lg text-[#0A4D68] group-hover:text-white">DA</h4>
+                                <p class="text-[#4392B3] text-sm font-semibold group-hover:text-blue-100">e-Counseling
+                                </p>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-12 group-hover:text-white">
+                                "Sangat bermanfaat memberi insight positif, permasalahan digali dari segala sisi. Bisa
+                                dicoba banget buat yang lagi bingung."
+                            </p>
+                            <div class="mt-auto pt-4 flex justify-end">
+                                <span class="text-[12px] text-gray-400 group-hover:text-blue-200">30 Desember
+                                    2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide h-auto">
+                        <div
+                            class="card-ulasan bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm h-full transition-all duration-500 group">
+                            <div class="mb-4">
+                                <h4 class="font-bold text-lg text-[#0A4D68] group-hover:text-white">GAH</h4>
+                                <p class="text-[#4392B3] text-sm font-semibold group-hover:text-blue-100">e-Counseling
+                                </p>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-12 group-hover:text-white">
+                                "Layanannya sangat baik dan bisa dipercaya. Psikolognya sangat mendengarkan tanpa
+                                menghakimi sama sekali."
+                            </p>
+                            <div class="mt-auto pt-4 flex justify-end">
+                                <span class="text-[12px] text-gray-400 group-hover:text-blue-200">13 Oktober
+                                    2021</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide h-auto">
+                        <div
+                            class="card-ulasan bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm h-full transition-all duration-500 group">
+                            <div class="mb-4">
+                                <h4 class="font-bold text-lg text-[#0A4D68] group-hover:text-white">HA</h4>
+                                <p class="text-[#4392B3] text-sm font-semibold group-hover:text-blue-100">e-Counseling
+                                </p>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-12 group-hover:text-white">
+                                "Mendapatkan konseling hari ini membuat saya dapat berpikir dengan kepala dingin.
+                                Memberikan opsi dalam menyelesaikan masalah..."
+                            </p>
+                            <div class="mt-auto pt-4 flex justify-between items-center">
+                                <a href="#"
+                                    class="text-[#4392B3] font-bold text-xs group-hover:text-white underline">Selengkapnya</a>
+                                <span class="text-[12px] text-gray-400 group-hover:text-blue-200">21 Juni 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination !bottom-0 custom-line-pagination"></div>
+            </div>
+        </div>
+    </section>
+
     @include('landing_page.footer')
-    @include('landing_page.script')
-</x-app-layout>
+
+    @push('styles')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <style>
+            .swiper-pagination-bullet-active {
+                background: #D98324 !important;
+            }
+
+            .serif {
+                font-family: 'Georgia', serif;
+            }
+        </style>
+    @endpush
+
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            new Swiper(".heroSwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 5000
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+            });
+            // Swiper untuk Card Psikolog
+            var psikologSwiper = new Swiper(".psikologSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                centeredSlides: false,
+                pagination: {
+                    el: ".custom-line-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                    }
+                }
+            });
+
+            var ulasanSwiper = new Swiper(".ulasanSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                pagination: {
+                    el: ".custom-line-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                    }
+                }
+            });
+        </script>
+    @endpush
+</x-guest-layout>

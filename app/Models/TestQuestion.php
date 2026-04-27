@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TestQuestion extends Model
 {
@@ -14,8 +15,9 @@ class TestQuestion extends Model
         return $this->belongsTo(TestCategory::class, 'test_category_id');
     }
 
-    public function options()
+    public function testOptions(): HasMany
     {
-        return $this->hasMany(TestOption::class);
+        // Pastikan foreign key di tabel test_options adalah 'test_question_id'
+        return $this->hasMany(TestOption::class, 'test_question_id');
     }
 }

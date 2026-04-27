@@ -1,144 +1,104 @@
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        .serif-italic {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
+<style>
+    :root {
+        --sage-primary: #5F7A61;
+        --sage-light: #8DA490;
+        --warm-white: #FDFCFB;
+        --soft-gray: #718096;
+    }
 
-        /* Palet Zen: Sage Green & Deep Slate */
-        .hero-gradient {
-            background: linear-gradient(180deg, #F0F4F2 0%, #DDE5E0 100%);
-        }
+    body {
+        background-color: var(--warm-white);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
 
-        /* Carousel Slide Ke Samping */
-        .carousel-container {
-            display: flex;
-            transition: transform 0.8s cubic-bezier(0.45, 0, 0.55, 1);
-            width: 200%;
-        }
+    .hero-gradient {
+        background: radial-gradient(circle at top right, #E9F0EC 0%, #FDFCFB 100%);
+    }
 
-        .carousel-slide {
-            width: 50%;
-            flex-shrink: 0;
-        }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
 
-        /* Glassmorphism Effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
+    .serif-italic {
+        font-family: 'Playfair Display', serif;
+        /* Pastikan font ini di-import */
+    }
 
-        .active-dot {
-            width: 48px !important;
-            background-color: #5F7A61 !important;
-        }
+    .btn-zen-primary {
+        background-color: var(--sage-primary);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-        .btn-zen-primary {
-            background-color: #5F7A61;
-            transition: all 0.3s ease;
-        }
+    .btn-zen-primary:hover {
+        background-color: var(--sage-light);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(95, 122, 97, 0.2);
+    }
 
-        .btn-zen-primary:hover {
-            background-color: #4A614C;
-            transform: translateY(-2px);
-        }
+    /* Custom Scrollbar untuk Card Psikolog */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
 
-        .btn-zen-secondary {
-            background-color: #4A5568;
-            transition: all 0.3s ease;
-        }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 
-        .btn-zen-secondary:hover {
-            background-color: #2D3748;
-            transform: translateY(-2px);
-        }
 
-        /* Mega Menu Styles (Sistem Klik) */
-        .mega-menu {
-            display: none;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
+    /* Container Pagination */
+    .custom-line-pagination.swiper-pagination-bullets {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
 
-        .mega-menu.active {
-            display: grid;
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* Bentuk Garis Non-Aktif */
+    .custom-line-pagination .swiper-pagination-bullet {
+        width: 32px;
+        /* Lebih lebar dari dot biasa */
+        height: 6px;
+        border-radius: 10px;
+        background: #E2E8F0;
+        opacity: 1;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 0 !important;
+    }
 
-        /* Mencegah klik di dalam menu menutup menu itu sendiri jika diinginkan */
-        .mega-menu-content {
-            pointer-events: auto;
-        }
+    /* Bentuk Garis Aktif (Warna Biru Tua) */
+    .custom-line-pagination .swiper-pagination-bullet-active {
+        width: 60px;
+        /* Garis memanjang saat aktif */
+        background: #0A4D68;
+        /* Warna brand Tenang-in */
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
+    /* Efek Hover Card Ulasan */
+    .card-ulasan {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 1;
+    }
 
-        .card-transition {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    /* Membuat gradasi saat hover */
+    .card-ulasan:hover {
+        background: linear-gradient(135deg, #0A4D68 0%, #176B87 100%);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(10, 77, 104, 0.15);
+    }
 
-        /* Hide scrollbar for carousel */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+    /* Memastikan transisi smooth pada teks */
+    .card-ulasan p,
+    .card-ulasan h4,
+    .card-ulasan span {
+        transition: color 0.4s ease;
+    }
 
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Footer Styling */
-        .footer-bg {
-            background-color: #052c3e;
-            position: relative;
-        }
-
-        /* SVG Wave Styling - Dioptimalkan agar persis seperti gambar */
-        .wave-top {
-            position: absolute;
-            top: -95px;
-            /* Menyesuaikan agar gelombang menumpuk di atas konten */
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-        }
-
-        .wave-top svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 100px;
-        }
-
-        .wave-top .shape-fill {
-            fill: #052c3e;
-        }
-
-        .footer-link {
-            color: #cbd5e1;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: #ffffff;
-        }
-
-        .badge-soon {
-            background-color: #475569;
-            color: white;
-            font-size: 10px;
-            padding: 1px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-    </style>
+    
+</style>

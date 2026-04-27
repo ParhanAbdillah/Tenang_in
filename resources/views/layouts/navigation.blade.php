@@ -54,13 +54,13 @@
             <i class="fa-solid fa-chart-line"></i> Laporan Aktivitas
         </a>
         <a href="{{ route('admin.mental-health.index') }}"
-            class="{{ request()->routeIs('admin.mental-health.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all">
+            class="{{ request()->routeIs('admin.mental-health.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-gray-50">
             <i class="fa-solid fa-newspaper"></i> Manajemen Edukasi
         </a>
 
         <div class="pt-6">
             <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Added Menu</p>
-            
+
             <a href="{{ route('admin.ai.index') }}"
                 class="{{ request()->routeIs('admin.ai.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all">
                 <i class="fa-solid fa-robot"></i> AI Engine Settings
@@ -78,9 +78,14 @@
 
     <!-- Logout -->
     <div class="p-4 border-t border-gray-100">
-        <a href="#"
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
             class="flex items-center gap-3 px-3 py-2.5 text-rose-600 hover:bg-rose-50 rounded-lg font-semibold text-sm transition-all">
             <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
         </a>
-    </div>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+        </div>
 </aside>

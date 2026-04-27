@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Sesuaikan dengan layout admin Anda --}}
+@extends('layouts.app')
 
 @section('content')
 <div class="p-6">
@@ -8,11 +8,12 @@
         </a>
         <div>
             <h1 class="text-2xl font-bold text-slate-800">{{ $category->name }}</h1>
-            <p class="text-slate-500">Daftar pertanyaan untuk kuesioner ini.</p>
+            <p class="text-slate-500">Daftar pertanyaan dan bobot skor kuesioner.</p>
         </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {{-- Form Tambah Pertanyaan --}}
         <div class="lg:col-span-1">
             <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
                 <h3 class="font-bold text-slate-800 mb-4">Tambah Pertanyaan Baru</h3>
@@ -21,16 +22,43 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Teks Pertanyaan</label>
-                            <textarea name="question_text" rows="4" class="w-full bg-slate-50 border-none rounded-2xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Contoh: Apakah Anda merasa sulit untuk bersantai?" required></textarea>
+                            <textarea name="question_text" rows="3" class="w-full bg-slate-50 border-none rounded-2xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Contoh: Apakah Anda merasa sulit untuk bersantai?" required></textarea>
                         </div>
+
+                        {{-- Section Pilihan Jawaban Otomatis --}}
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Opsi Jawaban & Bobot (Skor)</h4>
+                            @php
+                                $defaultOptions = [
+                                    ['text' => 'Tidak pernah', 'score' => 0],
+                                    ['text' => 'Beberapa hari', 'score' => 1],
+                                    ['text' => 'Lebih dari separuh waktu', 'score' => 2],
+                                    ['text' => 'Hampir setiap hari', 'score' => 3],
+                                ];
+                            @endphp
+
+                            @foreach($defaultOptions as $index => $opt)
+                            <div class="flex items-center gap-2 mb-2">
+                                <input type="hidden" name="options[{{ $index }}][option_text]" value="{{ $opt['text'] }}">
+                                <div class="flex-1 text-xs text-slate-600 font-medium">{{ $opt['text'] }}</div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] text-slate-400">Skor:</span>
+                                    <input type="number" name="options[{{ $index }}][points]" value="{{ $opt['score'] }}" 
+                                           class="w-14 bg-white border-none rounded-lg px-2 py-1 text-xs text-center focus:ring-2 focus:ring-indigo-500" required>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
                         <button type="submit" class="w-full py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all">
-                            Simpan Pertanyaan
+                            Simpan Pertanyaan & Skor
                         </button>
                     </div>
                 </form>
             </div>
         </div>
 
+        {{-- Tabel Pertanyaan --}}
         <div class="lg:col-span-2">
             <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
                 <table class="w-full text-left">
@@ -48,15 +76,18 @@
                             <td class="px-6 py-4 text-sm text-slate-600 leading-relaxed">{{ $q->question_text }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-center gap-2">
-                                    <button class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-500 rounded-lg hover:bg-rose-100 transition-colors">
-                                        <i class="fa-solid fa-trash-can text-xs"></i>
-                                    </button>
+                                    <form action="{{ route('admin.mental-health.questions.destroy', [$category->id, $q->id]) }}" method="POST">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-500 rounded-lg hover:bg-rose-100 transition-colors" onclick="return confirm('Hapus pertanyaan ini?')">
+                                            <i class="fa-solid fa-trash-can text-xs"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-10 text-center text-slate-400 italic text-sm">Belum ada pertanyaan. Silakan tambah lewat form di samping.</td>
+                            <td colspan="3" class="px-6 py-10 text-center text-slate-400 italic text-sm">Belum ada pertanyaan.</td>
                         </tr>
                         @endforelse
                     </tbody>
