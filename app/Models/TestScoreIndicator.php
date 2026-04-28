@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class TestScoreIndicator extends Model
 {
     protected $fillable = [
-        'test_category_id', 
-        'min_score', 
-        'max_score', 
-        'status', 
+        'test_category_id',
+        'min_score',
+        'max_score',
+        'status',
+        'color',          
+        'description',   
+        'recommendation',
         'recommended_specialization_id'
     ];
 

@@ -53,47 +53,58 @@ class TestPsikologiController extends Controller
     {
         $request->validate(['jawaban' => 'required|array']);
 
-        $kategori = TestCategory::findOrFail($id);
         $totalSkor = 0;
-
         foreach ($request->jawaban as $soalId => $optionId) {
             $option = \App\Models\TestOption::find($optionId);
             if ($option) {
-                $totalSkor += $option->points;
+                $totalSkor += $option->points; // Mengambil bobot skor
             }
         }
 
-        // Ambil indikator berdasarkan rentang skor
+        // Ambil indikator dari database berdasarkan skor
         $indikator = \App\Models\TestScoreIndicator::where('test_category_id', $id)
             ->where('min_score', '<=', $totalSkor)
             ->where('max_score', '>=', $totalSkor)
             ->first();
 
-        // Simpan ke database
+        // Simpan hasil tes
         $result = \App\Models\TestResult::create([
             'user_id' => Auth::id(),
             'test_category_id' => $id,
             'total_score' => $totalSkor,
             'diagnosis' => $indikator->status ?? 'Tidak Teridentifikasi',
-            'suggestion' => 'Segera konsultasikan dengan psikolog.'
+            'suggestion' => $indikator->recommendation ?? 'Segera konsultasikan dengan tenaga profesional.',
+            'color_result' => $indikator->color ?? '#0A4D68' // Warna otomatis dari database!
         ]);
 
         return redirect()->route('user.test.result', $result->id);
     }
 
+
     public function result($resultId)
     {
+        // Eager loading relasi category dan user
         $result = \App\Models\TestResult::with('category')->findOrFail($resultId);
 
         $totalSkor = $result->total_score;
         $kategori = $result->category;
 
-        // Ambil indikator berdasarkan skor
-        $indikator = \App\Models\TestScoreIndicator::where('test_category_id', $kategori->id)
+        // Ambil indikator lengkap dengan relasi spesialisasi agar nama spesialis muncul
+        $indikator = \App\Models\TestScoreIndicator::with('specialization')
+            ->where('test_category_id', $kategori->id)
             ->where('min_score', '<=', $totalSkor)
             ->where('max_score', '>=', $totalSkor)
             ->first();
 
-        return view('landing_page.hasil_tes', compact('totalSkor', 'kategori', 'indikator', 'result'));
+        // Tentukan warna: Ambil dari hasil yang disimpan atau dari indikator saat ini
+        $warna = $result->color_result ?? ($indikator->color ?? '#0A4D68');
+
+        return view('landing_page.hasil_tes', compact(
+            'totalSkor',
+            'kategori',
+            'indikator',
+            'result',
+            'warna'
+        ));
     }
 }

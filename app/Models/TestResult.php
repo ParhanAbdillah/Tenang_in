@@ -11,7 +11,9 @@ class TestResult extends Model
         'test_category_id',
         'total_score',
         'diagnosis',
-        'suggestion'
+        'suggestion',
+        'color_result'
+
     ];
     // Tambahkan relasi ini
     public function category()

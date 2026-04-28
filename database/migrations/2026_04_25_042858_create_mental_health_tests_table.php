@@ -33,8 +33,7 @@ return new class extends Migration
             $table->foreignId('test_category_id')->constrained('test_categories')->onDelete('cascade');
             $table->integer('min_score');
             $table->integer('max_score');
-            $table->string('status'); // Contoh: Cemas Berat
-            // HUBUNGKAN KE TABEL SPECIALIZATION ANDA
+            $table->string('status'); 
             $table->foreignId('recommended_specialization_id')->nullable()->constrained('specializations');
             $table->timestamps();
         });

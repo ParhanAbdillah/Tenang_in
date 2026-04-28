@@ -49,9 +49,8 @@
 
                             <h3 class="text-2xl font-bold text-gray-800 mb-4">Apa artinya bagi Anda?</h3>
                             <p class="text-gray-600 leading-relaxed mb-6 italic">
-                                "Berdasarkan jawaban yang Anda berikan, tingkat <strong>{{ $kategori->name }}</strong>
-                                Anda saat ini berada pada kategori
-                                <strong>{{ $indikator->status ?? ($result->diagnosis ?? 'Tidak Teridentifikasi') }}</strong>."
+                                {{-- Jika ada deskripsi di database, tampilkan. Jika tidak, pakai teks default --}}
+                                {{ $indikator->description ?? "Berdasarkan jawaban Anda, tingkat $kategori->name Anda berada pada kategori $indikator->status." }}
                             </p>
 
                             <div class="flex items-center gap-3 text-sm text-gray-500">

@@ -9,7 +9,7 @@ class TestCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'slug'];
+    protected $fillable = ['name', 'description', 'slug', 'image'];
 
     // Relasi: Satu kategori punya banyak pertanyaan
     public function questions()

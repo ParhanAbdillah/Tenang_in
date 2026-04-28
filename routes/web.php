@@ -12,10 +12,9 @@ use App\Http\Controllers\User\ChatController;
 use Illuminate\Support\Facades\Route;
 
 // --- PUBLIC ROUTES ---
-// Pastikan tidak ada middleware 'auth' atau 'guest' yang membungkus ini
 Route::get('/Test_psikologi', function () {
     return view('landing_page.test_psikologi');
-})->name('test_psikologi')->withoutMiddleware(['auth', 'admin']); // Paksa lepas dari middleware admin
+})->name('test_psikologi')->withoutMiddleware(['auth', 'admin']);
 Route::get('/', function () {
     return view('landing_page.index');
 })->name('home');
@@ -34,18 +33,18 @@ Route::get('/individual', function () {
 /// 1. Halaman Daftar Utama (Masonry Grid)
 Route::get('/Test_psikologi', [TestPsikologiController::class, 'index'])->name('test_psikologi');
 
-// Halaman Instruksi (Pake URL lama agar tidak bingung)
+// Halaman Instruksi
 Route::get('/test-psikologi/{id}', [TestPsikologiController::class, 'detail'])->name('tes.detail');
 
 // 3. Halaman Pengerjaan (Halaman Slider/Progress Bar)
-// Halaman Pengerjaan Soal (Ganti URL-nya agar unik dan tidak bentrok)
+// Halaman Pengerjaan Soal 
 Route::get('/pengerjaan-tes/{id}', [TestPsikologiController::class, 'kerjakan'])->name('tes.kerjakan');
 
 // Pastikan baris ini ada di web.php Anda
 Route::post('/test-psikologi/submit/{id}', [TestPsikologiController::class, 'submit'])->name('user.test.submit');
 
 // Jika ada yang akses submit dengan GET, redirect ke halaman pengerjaan tes
-Route::get('/test-psikologi/submit/{id}', function($id) {
+Route::get('/test-psikologi/submit/{id}', function ($id) {
     return redirect()->route('tes.kerjakan', $id);
 });
 
@@ -66,7 +65,6 @@ Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.se
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
-
     // Halaman Dashboard
     Route::get('/dashboard', function () {
         return view('admin.dashboard.index');
@@ -91,16 +89,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('ai-settings', [SettingController::class, 'updateAiConfig'])->name('ai.update');
 
     // Manajemen Edukasi (Tes Mental Health)
-    // Gunakan prefix 'mental-health' agar rapi dan sesuai dengan Blade
+    // Manajemen Edukasi (Tes Mental Health)
     Route::prefix('mental-health')->name('mental-health.')->group(function () {
         Route::get('/', [MentalHealthTestController::class, 'index'])->name('index');
-        Route::post('/category', [MentalHealthTestController::class, 'storeCategory'])->name('category.store');
-        
-        // Kelola Pertanyaan (Gunakan prefix 'questions' agar URL konsisten)
-        Route::prefix('questions')->name('questions.')->group(function () {
-            Route::get('/{id}', [MentalHealthTestController::class, 'showQuestions'])->name('index'); // URL: /admin/mental-health/questions/1
-            Route::post('/{id}', [MentalHealthTestController::class, 'storeQuestion'])->name('store'); // URL: /admin/mental-health/questions/1
-            Route::delete('/{category}/{id}', [MentalHealthTestController::class, 'destroyQuestion'])->name('destroy');
+        Route::post('/store', [MentalHealthTestController::class, 'storeCategory'])->name('categories.store');
+        Route::put('/categories/{id}', [MentalHealthTestController::class, 'updateCategory'])->name('categories.update');
+        Route::delete('/categories/{id}', [MentalHealthTestController::class, 'destroyCategory'])->name('categories.destroy');
+
+        // Manajemen Indikator (Score Settings)
+        Route::prefix('indicators')->name('indicators.')->group(function () {
+            Route::get('/{category_id}', [MentalHealthTestController::class, 'manageIndicators'])->name('index');
+            Route::post('/{category_id}', [MentalHealthTestController::class, 'storeIndicator'])->name('store');
+            Route::delete('/{id}', [MentalHealthTestController::class, 'destroyIndicator'])->name('destroy');
+        });
+
+        // Group Kelola Pertanyaan
+        Route::prefix('questions')->name('questions')->group(function () {
+            Route::get('/{id}', [MentalHealthTestController::class, 'showQuestions'])->name('');
+            Route::post('/{id}', [MentalHealthTestController::class, 'storeQuestion'])->name('.store');
+
+            // Hapus route delete yang di dalam sini jika itu untuk kategori
         });
     });
 });
@@ -117,7 +125,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
+    ->name('logout');
 
 // Auth bawaan Laravel (Biarkan saja, tidak usah dipakai dulu)
 require __DIR__ . '/auth.php';

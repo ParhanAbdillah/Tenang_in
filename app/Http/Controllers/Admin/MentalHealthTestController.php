@@ -26,18 +26,75 @@ class MentalHealthTestController extends Controller
 
     public function storeCategory(Request $request)
     {
+        // 1. Validasi
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        TestCategory::create([
+        // 2. Siapkan data dasar
+        $data = [
             'name' => $request->name,
             'description' => $request->description,
             'slug' => \Illuminate\Support\Str::slug($request->name),
-        ]);
+        ];
+
+        // 3. LOGIKA KRUSIAL: Simpan file dan masukkan path-nya ke array $data
+        if ($request->hasFile('image')) {
+            // Ini akan menyimpan file ke folder storage/app/public/categories
+            $path = $request->file('image')->store('categories', 'public');
+
+            // Baris ini yang membuat data di database TIDAK NULL
+            $data['image'] = $path;
+        }
+
+        // 4. Simpan ke database dengan membawa array $data yang sudah berisi 'image'
+        \App\Models\TestCategory::create($data);
 
         return redirect()->back()->with('success', 'Kategori Tes berhasil ditambahkan!');
+    }
+
+
+    public function updateCategory(Request $request, $id)
+    {
+        $category = TestCategory::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => \Illuminate\Support\Str::slug($request->name),
+        ];
+
+        if ($request->hasFile('image')) {
+            // Hapus foto lama jika ada
+            if ($category->image && file_exists(storage_path('app/public/' . $category->image))) {
+                unlink(storage_path('app/public/' . $category->image));
+            }
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+
+        $category->update($data);
+        return redirect()->back()->with('success', 'Kategori berhasil diperbarui!');
+    }
+
+    public function destroyCategory($id)
+    {
+        $category = TestCategory::findOrFail($id);
+
+        // Hapus foto dari storage
+        if ($category->image && file_exists(storage_path('app/public/' . $category->image))) {
+            unlink(storage_path('app/public/' . $category->image));
+        }
+
+        $category->delete();
+        return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
     }
     public function storeQuestion(Request $request, $categoryId)
     {
@@ -89,12 +146,58 @@ class MentalHealthTestController extends Controller
         // 3. Pastikan view path sesuai dengan struktur folder Anda
         return view('admin.mental_health.questions', compact('category', 'questions'));
     }
-
+    // menghapus pertanyaan tes
     public function destroyQuestion($categoryId, $id)
     {
         $question = TestQuestion::findOrFail($id);
         $question->delete(); // Ini otomatis menghapus opsi jika migration menggunakan onDelete('cascade')
 
         return redirect()->back()->with('success', 'Pertanyaan berhasil dihapus.');
+    }
+    //menghapus kategori tes
+
+    // Kelola Indikator Skor
+
+    public function manageIndicators($category_id)
+    {
+        $category = \App\Models\TestCategory::findOrFail($category_id);
+        $indicators = \App\Models\TestScoreIndicator::where('test_category_id', $category_id)
+            ->with('specialization')
+            ->orderBy('min_score', 'asc')
+            ->get();
+
+        $specializations = \App\Models\Specialization::all();
+
+        return view('admin.mental_health.indicators', compact('category', 'indicators', 'specializations'));
+    }
+
+    public function storeIndicator(Request $request, $category_id)
+    {
+        $request->validate([
+            'min_score' => 'required|integer',
+            'max_score' => 'required|integer',
+            'status' => 'required|string',
+            'color' => 'required|string',
+            'recommended_specialization_id' => 'nullable|exists:specializations,id'
+        ]);
+
+        \App\Models\TestScoreIndicator::create([
+            'test_category_id' => $category_id,
+            'min_score' => $request->min_score,
+            'max_score' => $request->max_score,
+            'status' => $request->status,
+            'color' => $request->color,
+            'description' => $request->description,
+            'recommendation' => $request->recommendation,
+            'recommended_specialization_id' => $request->recommended_specialization_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Indikator skor berhasil ditambahkan!');
+    }
+
+    public function destroyIndicator($id)
+    {
+        \App\Models\TestScoreIndicator::destroy($id);
+        return redirect()->back()->with('success', 'Indikator berhasil dihapus!');
     }
 }
