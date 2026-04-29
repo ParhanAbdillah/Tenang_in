@@ -39,7 +39,7 @@
                     <div class="bg-white border border-gray-50 rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] p-8">
                         <div class="grid grid-cols-3 gap-6">
                             
-                            <a href="#" class="group flex items-start gap-4 p-5 rounded-3xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100">
+                            <a href="{{ route('individual') }}" class="group flex items-start gap-4 p-5 rounded-3xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100">
                                 <div class="w-14 h-14 shrink-0 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" class="w-10 h-10 object-contain" alt="Individual">
                                 </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PsychologistController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SpecializationController;
+use App\Http\Controllers\Admin\WebConfigController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Public\TestPsikologiController;
@@ -88,6 +89,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('ai-settings', [SettingController::class, 'aiConfig'])->name('ai.index');
     Route::post('ai-settings', [SettingController::class, 'updateAiConfig'])->name('ai.update');
 
+    Route::get('/config', [WebConfigController::class, 'index'])->name('web_config.index');
+    Route::post('/config/update-landing', [WebConfigController::class, 'update'])->name('web_config.update');
+
     // Manajemen Edukasi (Tes Mental Health)
     // Manajemen Edukasi (Tes Mental Health)
     Route::prefix('mental-health')->name('mental-health.')->group(function () {
@@ -104,11 +108,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         // Group Kelola Pertanyaan
-        Route::prefix('questions')->name('questions')->group(function () {
-            Route::get('/{id}', [MentalHealthTestController::class, 'showQuestions'])->name('');
-            Route::post('/{id}', [MentalHealthTestController::class, 'storeQuestion'])->name('.store');
+        Route::prefix('questions')->name('questions.')->group(function () {
+            Route::get('/{id}', [MentalHealthTestController::class, 'showQuestions'])->name('index');
+            Route::post('/{id}', [MentalHealthTestController::class, 'storeQuestion'])->name('store');
+            Route::delete('/{id}', [MentalHealthTestController::class, 'destroyQuestion'])->name('destroy');
 
-            // Hapus route delete yang di dalam sini jika itu untuk kategori
+            
         });
     });
 });

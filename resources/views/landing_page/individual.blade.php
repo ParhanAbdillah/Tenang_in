@@ -1,25 +1,39 @@
-<x-app-layout>
-<style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        
+<x-guest-layout>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
         .serif-italic {
             font-family: Georgia, serif;
             font-style: italic;
         }
 
+        /* Tema Tenang.in: Biru Indigo & Kuning Oranye */
         .hero-gradient {
-            background: radial-gradient(circle at top right, #F0F4F2 0%, #FFFFFF 100%);
+            background: radial-gradient(circle at top right, #F0F4FF 0%, #FFFFFF 100%);
         }
 
-        .text-sage { color: #5F7A61; }
-        .bg-sage { background-color: #5F7A61; }
-        .border-sage { border-color: #5F7A61; }
-        
+        .text-primary {
+            color: #0F394C;
+        }
+
+        /* Biru Header */
+        .bg-primary {
+            background-color: #0F394C;
+        }
+
+        .bg-accent {
+            background-color: #D98324;
+        }
+
+        /* Oranye Tombol */
+
         .card-shadow {
-            box-shadow: 0 10px 40px -10px rgba(95, 122, 97, 0.1);
+            box-shadow: 0 10px 40px -10px rgba(15, 57, 76, 0.1);
         }
 
-        /* Pricing Card Base */
         .price-card {
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             height: 100%;
@@ -29,285 +43,167 @@
 
         .price-card:hover {
             transform: translateY(-12px);
-            box-shadow: 0 20px 50px -12px rgba(95, 122, 97, 0.15);
+            box-shadow: 0 20px 50px -12px rgba(15, 57, 76, 0.15);
         }
 
-        /* Button Professional Transitions */
-        .btn-action {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .btn-booking {
+            background-color: #D98324;
+            transition: all 0.3s ease;
         }
-        .btn-action:hover {
-            letter-spacing: 0.5px;
+
+        .btn-booking:hover {
+            background-color: #b56d1e;
             transform: scale(1.02);
-        }
-
-        /* Professional Toggle Styling */
-        .toggle-container {
-            position: relative;
-            background: #F1F5F2;
-            padding: 4px;
-            border-radius: 9999px;
-            display: inline-flex;
-            border: 1px solid #E2E8E4;
-        }
-
-        .toggle-option {
-            position: relative;
-            z-index: 10;
-            cursor: pointer;
-            padding: 12px 40px;
-            font-size: 0.875rem;
-            font-weight: 700;
-            transition: color 0.3s ease;
-            width: 140px;
-            text-align: center;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            height: calc(100% - 8px);
-            width: 140px;
-            background: white;
-            border-radius: 9999px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 5;
-        }
-
-        /* Content Switcher Logic */
-        .pricing-wrapper {
-            position: relative;
-            min-height: 550px;
-        }
-
-        .pricing-pane {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            transition: all 0.5s ease;
-            pointer-events: none;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .pricing-pane.active {
-            position: relative;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        @media (max-width: 768px) {
-            .pricing-pane { position: absolute; }
-            .pricing-pane.active { position: relative; }
+            letter-spacing: 0.5px;
         }
     </style>
-</head>
-@include('landing_page.navbar')
-@include('landing_page.style')
 
-    
-    <!-- --- HERO SECTION --- -->
+    @include('landing_page.navbar')
+
     <section class="pt-32 pb-16 hero-gradient overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-[#A0AEC0] mb-8">
-                <a href="#" class="hover:text-sage transition">Beranda</a>
-                <span>/</span>
-                <span class="text-sage">Konseling Individual</span>
-            </div>
-
             <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/2">
-                    <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                        Ruang Aman untuk<br>
-                        <span class="serif-italic font-normal text-sage italic">Pulihkan Dirimu</span>
+                <div class="w-full md:w-1/2 text-center md:text-left">
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-slate-900">
+                        {{ \App\Models\WebConfig::get('hero_title', 'Ruang Aman untuk Pulihkan Dirimu') }}
                     </h1>
-                    <p class="text-lg text-[#718096] mb-8 leading-relaxed max-w-md">
-                        Pilih metode konseling yang paling sesuai dengan kebutuhanmu. Tersedia sesi tatap muka langsung maupun daring.
+                    <p class="text-lg text-slate-500 mb-8 leading-relaxed max-w-md mx-auto md:mx-0">
+                        {{ \App\Models\WebConfig::get('hero_description', 'Pilih metode konseling daring yang paling sesuai dengan kebutuhan pemulihanmu.') }}
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#harga" class="bg-sage text-white px-10 py-4 rounded-full text-center text-lg font-bold shadow-lg shadow-sage/20 hover:bg-[#4E6650] transition inline-block">
-                            Pilih Paket Harga
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#harga"
+                            class="bg-primary text-white px-10 py-4 rounded-2xl text-center text-lg font-bold shadow-lg shadow-blue-900/20 hover:bg-slate-800 transition duration-300">
+                            Lihat Paket Konseling
                         </a>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 relative">
-                    <img src="https://images.unsplash.com/photo-1573497620053-ea5310f94a17?auto=format&fit=crop&q=80&w=800" 
-                         alt="Sesi Konseling" 
-                         class="relative rounded-[40px] shadow-2xl border-4 border-white">
+                    <div
+                        class="absolute -top-10 -left-10 w-32 h-32 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+                    </div>
+                    <img src="{{ \App\Models\WebConfig::get('individual_hero_image') ? asset('storage/' . \App\Models\WebConfig::get('individual_hero_image')) : 'https://images.unsplash.com/photo-1573497620053-ea5310f94a17?auto=format&fit=crop&q=80&w=800' }}"
+                        class="relative rounded-[3rem] shadow-2xl border-8 border-white object-cover h-[500px] w-full"
+                        alt="Konseling Tenang.in">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- --- PRICING SECTION --- -->
-    <section id="harga" class="py-24 bg-white relative">
+    <section id="harga" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4 italic serif-italic">Pilih Paket Konseling</h2>
-                <p class="text-[#718096] mb-10">Transparan, tanpa biaya tersembunyi.</p>
-                
-                <!-- TOGGLE SWITCH -->
-                <div class="toggle-container">
-                    <div id="toggle-slider" class="toggle-slider"></div>
-                    <div onclick="switchPricing('offline')" id="btn-offline" class="toggle-option text-sage">Offline</div>
-                    <div onclick="switchPricing('online')" id="btn-online" class="toggle-option text-gray-400">Online</div>
-                </div>
+                <h2 class="text-4xl font-bold mb-4 text-slate-900">Paket Konseling Online Individual</h2>
+                <p class="text-slate-500">Investasi terbaik untuk kesehatan mental dan pertumbuhan dirimu.</p>
             </div>
 
-            <div class="pricing-wrapper">
-                
-                <!-- OFFLINE PANE -->
-                <div id="offline-pricing" class="pricing-pane active grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Paket 1 Offline -->
-                    <div class="price-card bg-white p-10 rounded-[40px] border border-gray-100 card-shadow">
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold mb-2">Sesi Tunggal</h3>
-                            <p class="text-sm text-[#A0AEC0]">Tatap muka langsung di kantor.</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-4xl font-bold text-sage">Rp350k</span>
-                            <span class="text-[#A0AEC0]">/ sesi</span>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow text-sm text-[#718096]">
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Konseling 60 Menit</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Ruangan Privat Nyaman</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Welcome Drink</li>
-                        </ul>
-                        <button class="btn-action w-full py-4 rounded-full border-2 border-sage text-sage font-bold hover:bg-sage hover:text-white transition">Cari Psikolog</button>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
-                    <!-- Paket 2 Offline (Featured) -->
-                    <div class="price-card bg-[#5F7A61] p-10 rounded-[40px] shadow-2xl shadow-sage/40 text-white transform md:scale-105 relative z-20">
-                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#FFD700] text-[#4A5568] px-6 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Terlaris</div>
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold mb-2">Paket Intensif</h3>
-                            <p class="text-sm text-sage-100 opacity-80">4x Pertemuan rutin mingguan.</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-4xl font-bold">Rp1.2jt</span>
-                            <span class="opacity-70">/ 4 sesi</span>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow text-sm">
-                            <li class="flex items-center"><span class="mr-3 font-bold text-white">✓</span> Hemat Rp200.000</li>
-                            <li class="flex items-center"><span class="mr-3 font-bold text-white">✓</span> Psikolog yang Sama</li>
-                            <li class="flex items-center"><span class="mr-3 font-bold text-white">✓</span> Prioritas Penjadwalan</li>
-                        </ul>
-                        <button class="btn-action w-full py-4 rounded-full bg-white text-sage font-bold hover:bg-gray-100 transition">Cari Psikolog</button>
+                <div class="price-card bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 card-shadow">
+                    <div class="h-44 bg-slate-200 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&q=80&w=500"
+                            class="w-full h-full object-cover grayscale opacity-70" alt="Basic Session">
+                        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
                     </div>
+                    <div class="p-8 pt-0 text-center">
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">Basic</h3>
+                        <div class="mb-6">
+                            {{-- Mengambil key 'price_basic' dari database --}}
+                            <span class="text-2xl font-bold text-[#0F394C]">
+                                Rp{{ number_format(\App\Models\WebConfig::get('price_basic', 199000), 0, ',', '.') }}
+                            </span>
+                            <span class="text-slate-400 text-sm">/ Sesi</span>
+                        </div>
+                        {{-- Perbaikan link ke route daftar psikolog --}}
+                        <a href="#"
+                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">Cari
+                            Psikolog</a>
 
-                    <!-- Paket 3 Offline -->
-                    <div class="price-card bg-white p-10 rounded-[40px] border border-gray-100 card-shadow">
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold mb-2">Transformasi</h3>
-                            <p class="text-sm text-[#A0AEC0]">8x Sesi pendampingan total.</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-4xl font-bold text-sage">Rp2.3jt</span>
-                            <span class="text-[#A0AEC0]">/ 8 sesi</span>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow text-sm text-[#718096]">
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Pendampingan 2 Bulan</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Laporan Perkembangan</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Merchandise Eksklusif</li>
+                        <ul class="text-left space-y-4 text-xs text-slate-600 px-2">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Psikolog rata-rata berusia 20 - 30 tahun</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Pengalaman menangani klien 0 - 2 tahun</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Jumlah klien ditangani < 300 orang</span>
+                            </li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Kasus: depresi, kecemasan, karir, & kepribadian</span></li>
                         </ul>
-                        <button class="btn-action w-full py-4 rounded-full border-2 border-sage text-sage font-bold hover:bg-sage hover:text-white transition">Cari Psikolog</button>
                     </div>
                 </div>
 
-                <!-- ONLINE PANE -->
-                <div id="online-pricing" class="pricing-pane grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Paket 1 Online -->
-                    <div class="price-card bg-white p-10 rounded-[40px] border border-gray-100 card-shadow">
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold mb-2">Sesi Tunggal</h3>
-                            <p class="text-sm text-[#A0AEC0]">Konseling via Video Call.</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-4xl font-bold text-sage">Rp250k</span>
-                            <span class="text-[#A0AEC0]">/ sesi</span>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow text-sm text-[#718096]">
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Durasi 60 Menit</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Via Google Meet/WA</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Fleksibel Dari Mana Saja</li>
-                        </ul>
-                        <button class="btn-action w-full py-4 rounded-full border-2 border-sage text-sage font-bold hover:bg-sage hover:text-white transition">Cari Psikolog</button>
+                <div
+                    class="price-card bg-white rounded-[2.5rem] overflow-hidden border-2 border-[#D98324] card-shadow relative transform md:scale-105 z-10">
+                    <div class="absolute top-4 right-6">
+                        <span
+                            class="bg-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Paling
+                            Populer</span>
                     </div>
-
-                    <!-- Paket 2 Online (Featured) -->
-                    <div class="price-card bg-[#5F7A61] p-10 rounded-[40px] shadow-2xl shadow-sage/40 text-white transform md:scale-105 relative z-20">
-                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#FFD700] text-[#4A5568] px-6 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Paling Populer</div>
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold mb-2">Paket Berproses</h3>
-                            <p class="text-sm text-sage-100 opacity-80">4x Sesi konseling daring.</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-4xl font-bold">Rp890k</span>
-                            <span class="opacity-70">/ 4 sesi</span>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow text-sm">
-                            <li class="flex items-center"><span class="mr-3 font-bold text-white">✓</span> Hemat Rp110.000</li>
-                            <li class="flex items-center"><span class="mr-3 font-bold text-white">✓</span> Rekaman Sesi (Opsional)</li>
-                            <li class="flex items-center"><span class="mr-3 font-bold text-white">✓</span> Materi Pendukung PDF</li>
-                        </ul>
-                        <button class="btn-action w-full py-4 rounded-full bg-white text-sage font-bold hover:bg-gray-100 transition">Cari Psikolog</button>
+                    <div class="h-44 bg-slate-200 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&q=80&w=500"
+                            class="w-full h-full object-cover grayscale opacity-70" alt="Essential Session">
+                        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
                     </div>
+                    <div class="p-8 pt-0 text-center">
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">Essential</h3>
+                        <div class="mb-6">
+                            {{-- Mengambil key 'price_essential' dari database --}}
+                            <span class="text-2xl font-bold text-[#0F394C]">
+                                Rp{{ number_format(\App\Models\WebConfig::get('price_essential', 299000), 0, ',', '.') }}
+                            </span>
+                            <span class="text-slate-400 text-sm">/ Sesi</span>
+                        </div>
+                        <a href="3"
+                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">Cari
+                            Psikolog</a>
 
-                    <!-- Paket 3 Online -->
-                    <div class="price-card bg-white p-10 rounded-[40px] border border-gray-100 card-shadow">
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold mb-2">Paket Lengkap</h3>
-                            <p class="text-sm text-[#A0AEC0]">8x Sesi untuk hasil optimal.</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-4xl font-bold text-sage">Rp1.6jt</span>
-                            <span class="text-[#A0AEC0]">/ 8 sesi</span>
-                        </div>
-                        <ul class="space-y-4 mb-10 flex-grow text-sm text-[#718096]">
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Pendampingan Intensif</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Konsultasi via Chat</li>
-                            <li class="flex items-center"><span class="mr-3 text-sage font-bold">✓</span> Sertifikat Selesai Sesi</li>
+                        <ul class="text-left space-y-4 text-xs text-slate-600 px-2">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Psikolog rata-rata berusia 26 - 30 tahun</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Pengalaman menangani klien 2 - 4 tahun</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Jumlah klien ditangani 301 - 500 orang</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Kasus: trauma, fobia, parenting, & relasi</span></li>
                         </ul>
-                        <button class="btn-action w-full py-4 rounded-full border-2 border-sage text-sage font-bold hover:bg-sage hover:text-white transition">Cari Psikolog</button>
                     </div>
                 </div>
 
+                <div class="price-card bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 card-shadow">
+                    <div class="h-44 bg-slate-200 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=500"
+                            class="w-full h-full object-cover grayscale opacity-70" alt="Premium Session">
+                        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-8 pt-0 text-center">
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">Premium</h3>
+                        <div class="mb-6">
+                            {{-- Mengambil key 'price_premium' dari database --}}
+                            <span class="text-2xl font-bold text-[#0F394C]">
+                                Rp{{ number_format(\App\Models\WebConfig::get('price_premium', 399000), 0, ',', '.') }}
+                            </span>
+                            <span class="text-slate-400 text-sm">/ Sesi</span>
+                        </div>
+                        <a href="#"
+                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">Cari
+                            Psikolog</a>
+
+                        <ul class="text-left space-y-4 text-xs text-slate-600 px-2">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Psikolog senior berusia 30 - 55 tahun</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Pengalaman menangani klien > 4 tahun</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Jumlah klien ditangani > 500 orang</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
+                                <span>Kasus klinis berat, adiksi, & keluarga</span></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     @include('landing_page.footer')
-    @include('landing_page.script')
-
-    <script>
-        function switchPricing(type) {
-            const offlinePane = document.getElementById('offline-pricing');
-            const onlinePane = document.getElementById('online-pricing');
-            const slider = document.getElementById('toggle-slider');
-            const btnOffline = document.getElementById('btn-offline');
-            const btnOnline = document.getElementById('btn-online');
-
-            if (type === 'online') {
-                slider.style.transform = 'translateX(140px)';
-                
-                offlinePane.classList.remove('active');
-                onlinePane.classList.add('active');
-                
-                btnOnline.classList.replace('text-gray-400', 'text-sage');
-                btnOffline.classList.replace('text-sage', 'text-gray-400');
-            } else {
-                slider.style.transform = 'translateX(0)';
-                
-                onlinePane.classList.remove('active');
-                offlinePane.classList.add('active');
-                
-                btnOffline.classList.replace('text-gray-400', 'text-sage');
-                btnOnline.classList.replace('text-sage', 'text-gray-400');
-            }
-        }
-    </script>
-    </x-app-layout>
+</x-guest-layout>

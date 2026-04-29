@@ -9,16 +9,14 @@
                     <div class="z-10 text-left">
                         <h2 class="text-xl md:text-2xl font-light italic mb-4">Mengenal Lebih Dekat</h2>
                         <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
-                            Membangun Ekosistem <br>
-                            <span class="text-[#A0AEC0] italic font-normal serif">Kesehatan Mental</span> yang Inklusif
+                            {{ \App\Models\WebConfig::get('home_hero_title', 'Membangun Ekosistem Kesehatan Mental yang Inklusif') }}
                         </h1>
                         <p class="text-lg opacity-90 mb-8 max-w-lg">
-                            Tenang-in hadir sebagai teman perjalananmu dalam memahami diri, mengatasi luka, dan
-                            menemukan kembali kebahagiaan.
+                            {{ \App\Models\WebConfig::get('home_hero_description', 'Tenang-in hadir sebagai teman perjalananmu dalam memahami diri, mengatasi luka, dan menemukan kembali kebahagiaan.') }}
                         </p>
-                        <a href="#"
+                        <a href="{{ \App\Models\WebConfig::get('home_cta_link', '#') }}"
                             class="bg-[#D98324] hover:bg-[#b56d1d] text-white px-8 py-4 rounded-full font-bold transition-all inline-block">
-                            Konseling di Tenang-in
+                            {{ \App\Models\WebConfig::get('home_cta_text', 'Konseling di Tenang-in') }}
                         </a>
                     </div>
                     <div class="relative hidden md:block">
@@ -86,6 +84,7 @@
             </div>
         </div>
     </section>
+
 
     {{-- Section ke 3 --}}
 

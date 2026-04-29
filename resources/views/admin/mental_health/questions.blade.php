@@ -76,7 +76,7 @@
                             <td class="px-6 py-4 text-sm text-slate-600 leading-relaxed">{{ $q->question_text }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-center gap-2">
-                                    <form action="{{ route('admin.mental-health.destroy', [$category->id, $q->id]) }}" method="POST">
+                                    <form action="{{ route('admin.mental-health.questions.destroy', $q->id) }}" method="POST">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-500 rounded-lg hover:bg-rose-100 transition-colors" onclick="return confirm('Hapus pertanyaan ini?')">
                                             <i class="fa-solid fa-trash-can text-xs"></i>

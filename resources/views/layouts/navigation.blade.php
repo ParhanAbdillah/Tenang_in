@@ -65,8 +65,8 @@
                 class="{{ request()->routeIs('admin.ai.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all">
                 <i class="fa-solid fa-robot"></i> AI Engine Settings
             </a>
-            <a href="#"
-                class="flex items-center gap-3 px-3 py-2.5 text-gray-500 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all">
+            <a href="{{ route('admin.web_config.index') }}"
+                class="{{ request()->routeIs('admin.web_config.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all">
                 <i class="fa-solid fa-gear"></i> Konfigurasi Web
             </a>
             <a href="#"
