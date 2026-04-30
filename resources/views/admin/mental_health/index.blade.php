@@ -67,7 +67,7 @@
 
                     {{-- TOMBOL NAVIGASI --}}
                     <div class="grid grid-cols-2 gap-3 mt-auto">
-                        <a href="{{ route('admin.mental-health.questions', $category->id) }}"
+                        <a href="{{ route('admin.mental-health.questions.index', $category->id) }}"
                             class="text-center bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold py-3.5 rounded-2xl border border-slate-200 transition-all hover:border-slate-300">
                             Kelola Soal
                         </a>

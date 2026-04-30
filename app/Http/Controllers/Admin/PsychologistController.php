@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Psychologist;
 use App\Models\Specialization;
+use App\Models\ClinicalType;
 use Illuminate\Http\Request;
 
 class PsychologistController extends Controller
 {
     public function index()
     {
-        $psychologists = Psychologist::all();
-        $specializations = Specialization::all(); // Pastikan ini ada untuk dropdown
-        return view('admin.psychologist.index', compact('psychologists', 'specializations'));
+        $psychologists = Psychologist::with(['specializations', 'clinicalType'])->get();
+        $specializations = Specialization::all(); 
+        $clinicalTypes = ClinicalType::all();
+        return view('admin.psychologist.index', compact('psychologists', 'specializations', 'clinicalTypes'));
     }
 
     public function store(Request $request)
@@ -22,7 +24,11 @@ class PsychologistController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:psychologists,email',
             'phone' => 'required',
-            'specialization' => 'required',
+            'specializations' => 'required|array',
+            'clinical_type_id' => 'nullable|exists:clinical_types,id',
+            'educational_background' => 'nullable|string',
+            'total_sessions' => 'nullable|numeric',
+            'satisfaction_rate' => 'nullable|numeric',
             'license_number' => 'required',
             'price_per_session' => 'required|numeric',
             'experience_years' => 'required|numeric',
@@ -35,7 +41,11 @@ class PsychologistController extends Controller
             $validated['photo'] = $path;
         }
 
-        Psychologist::create($validated);
+        $psychologist = Psychologist::create($validated);
+        
+        if ($request->has('specializations')) {
+            $psychologist->specializations()->sync($request->specializations);
+        }
 
         return redirect()->back()->with('success', 'Psikolog berhasil ditambahkan!');
     }
@@ -47,6 +57,11 @@ class PsychologistController extends Controller
         $request->validate([
             'email' => 'required|email|unique:psychologists,email,' . $id,
             'license_number' => 'required|unique:psychologists,license_number,' . $id,
+            'specializations' => 'nullable|array',
+            'clinical_type_id' => 'nullable|exists:clinical_types,id',
+            'educational_background' => 'nullable|string',
+            'total_sessions' => 'nullable|numeric',
+            'satisfaction_rate' => 'nullable|numeric',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -65,6 +80,9 @@ class PsychologistController extends Controller
         }
 
         $psy->update($data);
+        
+        // Update specializations via pivot table
+        $psy->specializations()->sync($request->input('specializations', []));
 
         return back()->with('success', 'Data Psikolog Berhasil Diperbarui!');
     }

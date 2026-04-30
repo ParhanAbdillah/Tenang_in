@@ -77,27 +77,61 @@
                 </div>
             </div>
 
-            {{-- --- BAGIAN 2: PAKET HARGA (INDIVIDUAL & COUPLE) --- --}}
+            {{-- --- BAGIAN 3: MANAJEMEN HARGA (DENGAN RENTANG) --- --}}
             <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
                 <h3 class="font-bold text-blue-600 flex items-center gap-2 mb-6 text-sm uppercase tracking-wider">
-                    <i class="fa-solid fa-tags"></i> 2. Manajemen Harga & Sesi
+                    <i class="fa-solid fa-tags"></i> 3. Manajemen Rentang Harga Paket
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    {{-- Harga Sesi Tunggal --}}
+                    
+                    {{-- Harga Sesi Tunggal Individual --}}
                     <div class="space-y-6">
-                        <p class="text-[11px] font-bold text-slate-800 flex items-center gap-2 uppercase"><i class="fa-solid fa-user"></i> Paket Konseling Individual</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-                            <div>
-                                <label class="block text-[9px] font-bold text-slate-400 mb-1 uppercase">Basic (Rp)</label>
-                                <input type="number" name="price_basic" value="{{ \App\Models\WebConfig::get('price_basic') }}" class="w-full p-3 bg-slate-50 rounded-xl border-none text-xs">
+                        <p class="text-[11px] font-bold text-slate-800 flex items-center gap-2 uppercase"><i class="fa-solid fa-user"></i> Paket Konseling Individual (Rentang Harga)</p>
+                        
+                        <div class="space-y-4">
+                            {{-- Basic Range --}}
+                            <div class="p-4 bg-slate-50 rounded-2xl">
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2 uppercase">Kategori Basic (Min - Max)</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">Min</span>
+                                        <input type="number" name="price_basic_min" value="{{ \App\Models\WebConfig::get('price_basic_min', 20000) }}" class="w-full pl-10 p-3 bg-white rounded-xl border-none text-xs font-bold text-blue-600">
+                                    </div>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">Max</span>
+                                        <input type="number" name="price_basic_max" value="{{ \App\Models\WebConfig::get('price_basic_max', 50000) }}" class="w-full pl-10 p-3 bg-white rounded-xl border-none text-xs font-bold text-blue-600">
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-[9px] font-bold text-slate-400 mb-1 uppercase">Essential (Rp)</label>
-                                <input type="number" name="price_essential" value="{{ \App\Models\WebConfig::get('price_essential') }}" class="w-full p-3 bg-slate-50 rounded-xl border-none text-xs">
+
+                            {{-- Essential Range --}}
+                            <div class="p-4 bg-slate-50 rounded-2xl">
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2 uppercase">Kategori Essential (Min - Max)</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">Min</span>
+                                        <input type="number" name="price_essential_min" value="{{ \App\Models\WebConfig::get('price_essential_min', 60000) }}" class="w-full pl-10 p-3 bg-white rounded-xl border-none text-xs font-bold text-blue-600">
+                                    </div>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">Max</span>
+                                        <input type="number" name="price_essential_max" value="{{ \App\Models\WebConfig::get('price_essential_max', 150000) }}" class="w-full pl-10 p-3 bg-white rounded-xl border-none text-xs font-bold text-blue-600">
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-[9px] font-bold text-slate-400 mb-1 uppercase">Premium (Rp)</label>
-                                <input type="number" name="price_premium" value="{{ \App\Models\WebConfig::get('price_premium') }}" class="w-full p-3 bg-slate-50 rounded-xl border-none text-xs">
+
+                            {{-- Premium Range --}}
+                            <div class="p-4 bg-slate-50 rounded-2xl">
+                                <label class="block text-[10px] font-bold text-slate-400 mb-2 uppercase">Kategori Premium (Min - Max)</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">Min</span>
+                                        <input type="number" name="price_premium_min" value="{{ \App\Models\WebConfig::get('price_premium_min', 200000) }}" class="w-full pl-10 p-3 bg-white rounded-xl border-none text-xs font-bold text-blue-600">
+                                    </div>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">Max</span>
+                                        <input type="number" name="price_premium_max" value="{{ \App\Models\WebConfig::get('price_premium_max', 500000) }}" class="w-full pl-10 p-3 bg-white rounded-xl border-none text-xs font-bold text-blue-600">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -119,10 +153,10 @@
                 </div>
             </div>
 
-            {{-- --- BAGIAN 3: TENTANG KAMI (ABOUT) --- --}}
+            {{-- --- BAGIAN 4: TENTANG KAMI (ABOUT) --- --}}
             <div class="bg-white p-8 rounded-[32px] shadow-sm border border-slate-100">
                 <h3 class="font-bold text-orange-600 flex items-center gap-2 mb-6 text-sm uppercase tracking-wider">
-                    <i class="fa-solid fa-circle-info"></i> 3. Halaman Tentang Kami (About)
+                    <i class="fa-solid fa-circle-info"></i> 4. Halaman Tentang Kami (About)
                 </h3>
                 <div class="space-y-12">
                     {{-- Statistik & Visi --}}
@@ -146,11 +180,11 @@
 
                     {{-- --- MANAJEMEN TIM (4 ANGGOTA) --- --}}
                     <div class="space-y-10">
-                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-users-gear text-orange-400"></i> Manajemen Tim Inti (Keempat Anggota)</p>
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-users-gear text-orange-400"></i> Manajemen Tim Inti</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
                             
-                            {{-- MEMBER 1: CEO (Key: team_1) --}}
+                            {{-- MEMBER 1 --}}
                             <div class="p-6 bg-slate-50 rounded-4xl flex gap-6 items-center shadow-inner border border-slate-100">
                                 <div class="w-28 h-36 shrink-0">
                                     <img id="team_1_preview" src="{{ \App\Models\WebConfig::get('team_1_image') ? asset('storage/' . \App\Models\WebConfig::get('team_1_image')) : 'https://ui-avatars.com/api/?name=Member+1&background=E2E8F0&color=475569' }}" class="w-full h-full object-cover rounded-2xl shadow border-4 border-white" onerror="this.src='https://ui-avatars.com/api/?name=M1'">
@@ -166,7 +200,7 @@
                                 </div>
                             </div>
 
-                            {{-- MEMBER 2: CLINICAL DIRECTOR (Key: team_2) --}}
+                            {{-- MEMBER 2 --}}
                             <div class="p-6 bg-slate-50 rounded-4xl flex gap-6 items-center shadow-inner border border-slate-100">
                                 <div class="w-28 h-36 shrink-0">
                                     <img id="team_2_preview" src="{{ \App\Models\WebConfig::get('team_2_image') ? asset('storage/' . \App\Models\WebConfig::get('team_2_image')) : 'https://ui-avatars.com/api/?name=Member+2&background=E2E8F0&color=475569' }}" class="w-full h-full object-cover rounded-2xl shadow border-4 border-white" onerror="this.src='https://ui-avatars.com/api/?name=M2'">
@@ -177,12 +211,12 @@
                                         <input type="file" name="team_2_image" id="team_2_img" accept="image/*" onchange="previewImage(event, 'team_2_preview')" class="w-full text-xs text-slate-500">
                                     </div>
                                     <input type="text" name="team_2_name" placeholder="Nama Clinical Director" value="{{ \App\Models\WebConfig::get('team_2_name', 'Siska Amelia, M.Psi') }}" class="w-full p-3 bg-white rounded-xl border-none text-sm font-bold text-blue-600">
-                                    <input type="text" name="team_2_title" placeholder="Jabatan (Clinical Director)" value="{{ \App\Models\WebConfig::get('team_2_title', 'Clinical Director') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-600 uppercase tracking-wider font-semibold">
+                                    <input type="text" name="team_2_title" placeholder="Jabatan" value="{{ \App\Models\WebConfig::get('team_2_title', 'Clinical Director') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-600 uppercase tracking-wider font-semibold">
                                     <input type="text" name="team_2_description" placeholder="Deskripsi Singkat" value="{{ \App\Models\WebConfig::get('team_2_description') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-500">
                                 </div>
                             </div>
 
-                            {{-- MEMBER 3: CTO (Key: team_3) --}}
+                            {{-- MEMBER 3 --}}
                             <div class="p-6 bg-slate-50 rounded-4xl flex gap-6 items-center shadow-inner border border-slate-100">
                                 <div class="w-28 h-36 shrink-0">
                                     <img id="team_3_preview" src="{{ \App\Models\WebConfig::get('team_3_image') ? asset('storage/' . \App\Models\WebConfig::get('team_3_image')) : 'https://ui-avatars.com/api/?name=Member+3&background=E2E8F0&color=475569' }}" class="w-full h-full object-cover rounded-2xl shadow border-4 border-white" onerror="this.src='https://ui-avatars.com/api/?name=M3'">
@@ -193,12 +227,12 @@
                                         <input type="file" name="team_3_image" id="team_3_img" accept="image/*" onchange="previewImage(event, 'team_3_preview')" class="w-full text-xs text-slate-500">
                                     </div>
                                     <input type="text" name="team_3_name" placeholder="Nama CTO" value="{{ \App\Models\WebConfig::get('team_3_name', 'Budi Setiawan') }}" class="w-full p-3 bg-white rounded-xl border-none text-sm font-bold text-rose-600">
-                                    <input type="text" name="team_3_title" placeholder="Jabatan (CTO)" value="{{ \App\Models\WebConfig::get('team_3_title', 'CTO') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-600 uppercase tracking-wider font-semibold">
+                                    <input type="text" name="team_3_title" placeholder="Jabatan" value="{{ \App\Models\WebConfig::get('team_3_title', 'CTO') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-600 uppercase tracking-wider font-semibold">
                                     <input type="text" name="team_3_description" placeholder="Deskripsi Singkat" value="{{ \App\Models\WebConfig::get('team_3_description') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-500">
                                 </div>
                             </div>
 
-                            {{-- MEMBER 4: HEAD OF COMMUNITY (Key: team_4) --}}
+                            {{-- MEMBER 4 --}}
                             <div class="p-6 bg-slate-50 rounded-4xl flex gap-6 items-center shadow-inner border border-slate-100">
                                 <div class="w-28 h-36 shrink-0">
                                     <img id="team_4_preview" src="{{ \App\Models\WebConfig::get('team_4_image') ? asset('storage/' . \App\Models\WebConfig::get('team_4_image')) : 'https://ui-avatars.com/api/?name=Member+4&background=E2E8F0&color=475569' }}" class="w-full h-full object-cover rounded-2xl shadow border-4 border-white" onerror="this.src='https://ui-avatars.com/api/?name=M4'">
@@ -208,12 +242,11 @@
                                         <label class="block text-[9px] font-bold text-slate-400 mb-1 uppercase">Foto Head of Community</label>
                                         <input type="file" name="team_4_image" id="team_4_img" accept="image/*" onchange="previewImage(event, 'team_4_preview')" class="w-full text-xs text-slate-500">
                                     </div>
-                                    <input type="text" name="team_4_name" placeholder="Nama Head of Community" value="{{ \App\Models\WebConfig::get('team_4_name', 'Maya Putri') }}" class="w-full p-3 bg-white rounded-xl border-none text-sm font-bold text-blue-600">
-                                    <input type="text" name="team_4_title" placeholder="Jabatan (Head of Community)" value="{{ \App\Models\WebConfig::get('team_4_title', 'Head of Community') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-600 uppercase tracking-wider font-semibold">
-                                    <input type="text" name="team_4_description" placeholder="Deskripsi Singkat" value="{{ \App\Models\WebConfig::get('team_4_description') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-500">
+                                    <input type="text" name="team_4_name" placeholder="Nama" value="{{ \App\Models\WebConfig::get('team_4_name', 'Maya Putri') }}" class="w-full p-3 bg-white rounded-xl border-none text-sm font-bold text-blue-600">
+                                    <input type="text" name="team_4_title" placeholder="Jabatan" value="{{ \App\Models\WebConfig::get('team_4_title', 'Head of Community') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-600 uppercase tracking-wider font-semibold">
+                                    <input type="text" name="team_4_description" placeholder="Deskripsi" value="{{ \App\Models\WebConfig::get('team_4_description') }}" class="w-full p-3 bg-white rounded-xl border-none text-xs text-slate-500">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -228,13 +261,24 @@
             </button>
         </div>
     </form>
-    <script>
-        function previewImage(event, previewId) {
-            const input = event.target;
-            const preview = document.getElementById(previewId);
-            if (!preview || !input.files || !input.files[0]) return;
-            preview.src = URL.createObjectURL(input.files[0]);
-        }
-    </script>
 </div>
+
+<script>
+    function previewImage(event, previewId) {
+        const input = event.target;
+        const preview = document.getElementById(previewId);
+        if (!preview || !input.files || !input.files[0]) return;
+        preview.src = URL.createObjectURL(input.files[0]);
+    }
+</script>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.4s ease-out forwards;
+    }
+</style>
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SpecializationController;
 use App\Http\Controllers\Admin\WebConfigController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Public\LandingPageController;
 use App\Http\Controllers\Public\TestPsikologiController;
 use App\Http\Controllers\User\ChatController;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +28,7 @@ Route::get('/about', function () {
 
 
 
-Route::get('/individual', function () {
-    return view('landing_page.individual');
-})->name('individual');
+Route::get('/individual', [LandingPageController::class, 'individual'])->name('individual');
 
 /// 1. Halaman Daftar Utama (Masonry Grid)
 Route::get('/Test_psikologi', [TestPsikologiController::class, 'index'])->name('test_psikologi');
@@ -77,8 +76,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/psychologist/{id}', [PsychologistController::class, 'update'])->name('psychologist.update');
     Route::delete('/psychologist/{id}', [PsychologistController::class, 'destroy'])->name('psychologist.destroy');
 
-    // Data Master Spesialisasi
+    // Data Master Spesialisasi dan Tipe Klinis
     Route::resource('specialization', SpecializationController::class);
+    Route::resource('clinical_type', \App\Http\Controllers\Admin\ClinicalTypeController::class);
 
     // Jadwal Psikolog
     Route::get('schedule/{psychologist_id}', [ScheduleController::class, 'show'])->name('schedule.show');

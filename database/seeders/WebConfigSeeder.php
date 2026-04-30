@@ -14,6 +14,12 @@ class WebConfigSeeder extends Seeder
     {
         $settings = [
             ['key' => 'hero_title', 'value' => 'Ruang Aman untuk Pulihkan Dirimu'],
+            ['key' => 'price_basic_min', 'value' => '20000'],
+            ['key' => 'price_basic_max', 'value' => '50000'],
+            ['key' => 'price_essential_min', 'value' => '60000'],
+            ['key' => 'price_essential_max', 'value' => '150000'],
+            ['key' => 'price_premium_min', 'value' => '200000'],
+            ['key' => 'price_premium_max', 'value' => '500000'],
             ['key' => 'price_basic', 'value' => '199000'],
             ['key' => 'price_essential', 'value' => '299000'],
             ['key' => 'price_premium', 'value' => '399000'],

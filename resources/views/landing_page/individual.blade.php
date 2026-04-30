@@ -19,7 +19,6 @@
             color: #0F394C;
         }
 
-        /* Biru Header */
         .bg-primary {
             background-color: #0F394C;
         }
@@ -27,8 +26,6 @@
         .bg-accent {
             background-color: #D98324;
         }
-
-        /* Oranye Tombol */
 
         .card-shadow {
             box-shadow: 0 10px 40px -10px rgba(15, 57, 76, 0.1);
@@ -55,6 +52,17 @@
             background-color: #b56d1e;
             transform: scale(1.02);
             letter-spacing: 0.5px;
+        }
+
+        /* Animasi Blob untuk Hero Section */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
         }
     </style>
 
@@ -107,16 +115,16 @@
                     <div class="p-8 pt-0 text-center">
                         <h3 class="text-xl font-bold text-slate-800 mb-1">Basic</h3>
                         <div class="mb-6">
-                            {{-- Mengambil key 'price_basic' dari database --}}
-                            <span class="text-2xl font-bold text-[#0F394C]">
-                                Rp{{ number_format(\App\Models\WebConfig::get('price_basic', 199000), 0, ',', '.') }}
+                            <span class="text-xl font-bold text-[#0F394C]">
+                                Rp{{ number_format($prices['basic']['min'] ?? 0, 0, ',', '.') }} - Rp{{ number_format($prices['basic']['max'] ?? 0, 0, ',', '.') }}
                             </span>
-                            <span class="text-slate-400 text-sm">/ Sesi</span>
+                            <br>
+                            <span class="text-slate-400 text-xs">per Sesi</span>
                         </div>
-                        {{-- Perbaikan link ke route daftar psikolog --}}
                         <a href="#"
-                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">Cari
-                            Psikolog</a>
+                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">
+                            Cari Psikolog
+                        </a>
 
                         <ul class="text-left space-y-4 text-xs text-slate-600 px-2">
                             <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
@@ -124,20 +132,16 @@
                             <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
                                 <span>Pengalaman menangani klien 0 - 2 tahun</span></li>
                             <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
-                                <span>Jumlah klien ditangani < 300 orang</span>
-                            </li>
+                                <span>Jumlah klien ditangani < 300 orang</span></li>
                             <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
                                 <span>Kasus: depresi, kecemasan, karir, & kepribadian</span></li>
                         </ul>
                     </div>
                 </div>
 
-                <div
-                    class="price-card bg-white rounded-[2.5rem] overflow-hidden border-2 border-[#D98324] card-shadow relative transform md:scale-105 z-10">
+                <div class="price-card bg-white rounded-[2.5rem] overflow-hidden border-2 border-[#D98324] card-shadow relative transform md:scale-105 z-10">
                     <div class="absolute top-4 right-6">
-                        <span
-                            class="bg-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Paling
-                            Populer</span>
+                        <span class="bg-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Paling Populer</span>
                     </div>
                     <div class="h-44 bg-slate-200 relative overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&q=80&w=500"
@@ -147,15 +151,16 @@
                     <div class="p-8 pt-0 text-center">
                         <h3 class="text-xl font-bold text-slate-800 mb-1">Essential</h3>
                         <div class="mb-6">
-                            {{-- Mengambil key 'price_essential' dari database --}}
-                            <span class="text-2xl font-bold text-[#0F394C]">
-                                Rp{{ number_format(\App\Models\WebConfig::get('price_essential', 299000), 0, ',', '.') }}
+                            <span class="text-xl font-bold text-[#0F394C]">
+                                Rp{{ number_format($prices['essential']['min'] ?? 0, 0, ',', '.') }} - Rp{{ number_format($prices['essential']['max'] ?? 0, 0, ',', '.') }}
                             </span>
-                            <span class="text-slate-400 text-sm">/ Sesi</span>
+                            <br>
+                            <span class="text-slate-400 text-xs">per Sesi</span>
                         </div>
-                        <a href="3"
-                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">Cari
-                            Psikolog</a>
+                        <a href="#"
+                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">
+                            Cari Psikolog
+                        </a>
 
                         <ul class="text-left space-y-4 text-xs text-slate-600 px-2">
                             <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>
@@ -179,15 +184,16 @@
                     <div class="p-8 pt-0 text-center">
                         <h3 class="text-xl font-bold text-slate-800 mb-1">Premium</h3>
                         <div class="mb-6">
-                            {{-- Mengambil key 'price_premium' dari database --}}
-                            <span class="text-2xl font-bold text-[#0F394C]">
-                                Rp{{ number_format(\App\Models\WebConfig::get('price_premium', 399000), 0, ',', '.') }}
+                            <span class="text-xl font-bold text-[#0F394C]">
+                                Rp{{ number_format($prices['premium']['min'] ?? 0, 0, ',', '.') }} - Rp{{ number_format($prices['premium']['max'] ?? 0, 0, ',', '.') }}
                             </span>
-                            <span class="text-slate-400 text-sm">/ Sesi</span>
+                            <br>
+                            <span class="text-slate-400 text-xs">per Sesi</span>
                         </div>
                         <a href="#"
-                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">Cari
-                            Psikolog</a>
+                            class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">
+                            Cari Psikolog
+                        </a>
 
                         <ul class="text-left space-y-4 text-xs text-slate-600 px-2">
                             <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i>

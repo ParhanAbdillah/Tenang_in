@@ -52,9 +52,12 @@ class WebConfigController extends Controller
             $this->saveConfig("team_{$index}_description", $request->input("team_{$index}_description"));
         }
 
-        $this->saveConfig('price_basic', $request->price_basic);
-        $this->saveConfig('price_essential', $request->price_essential);
-        $this->saveConfig('price_premium', $request->price_premium);
+        $this->saveConfig('price_basic_min', $request->price_basic_min);
+        $this->saveConfig('price_basic_max', $request->price_basic_max);
+        $this->saveConfig('price_essential_min', $request->price_essential_min);
+        $this->saveConfig('price_essential_max', $request->price_essential_max);
+        $this->saveConfig('price_premium_min', $request->price_premium_min);
+        $this->saveConfig('price_premium_max', $request->price_premium_max);
         $this->saveConfig('price_pre_marriage', $request->price_pre_marriage);
         $this->saveConfig('price_marriage', $request->price_marriage);
 

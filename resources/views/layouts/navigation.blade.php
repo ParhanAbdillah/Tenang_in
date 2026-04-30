@@ -39,6 +39,11 @@
             <i class="fa-solid fa-tags"></i> Data Spesialisasi
         </a>
 
+        <a href="{{ route('admin.clinical_type.index') }}"
+            class="{{ request()->routeIs('admin.clinical_type.index') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-lg font-semibold text-sm transition-all hover:bg-gray-50">
+            <i class="fa-solid fa-layer-group"></i> Data Tipe Klinis
+        </a>
+
         {{-- <a href="{{ route('admin.psychologist.index') }}"
             class="{{ request()->routeIs('admin.psychologist.*') ? 'sidebar-active' : '' }} flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all">
             <i class="fa-solid fa-calendar-check"></i> Jadwal Praktik

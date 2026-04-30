@@ -60,8 +60,11 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-5">
-                                    <span
-                                        class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-extrabold uppercase">{{ $psy->specialization }}</span>
+                                    <div class="flex flex-wrap gap-1">
+                                        @foreach($psy->specializations as $spec)
+                                            <span class="px-2 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-extrabold uppercase">{{ $spec->name }}</span>
+                                        @endforeach
+                                    </div>
                                 </td>
                                 <td class="px-6 py-5 font-mono text-[11px] text-slate-500">{{ $psy->license_number }}</td>
                                 <td class="px-6 py-5 text-center">
@@ -151,55 +154,80 @@
                         {{-- Form Inputs Section --}}
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="col-span-2">
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Nama
-                                    Lengkap & Gelar</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Nama Lengkap & Gelar</label>
                                 <input type="text" name="name" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner"
                                     placeholder="Dr. Tono, M.Psi">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Email
-                                    Aktif</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Email Aktif</label>
                                 <input type="email" name="email" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">No.
-                                    WhatsApp</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">No. WhatsApp</label>
                                 <input type="text" name="phone" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
                             </div>
+                            <div class="col-span-2 relative">
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Spesialisasi (Pilih Satu atau Lebih)</label>
+                                <button type="button" onclick="document.getElementById('specDropdownAdd').classList.toggle('hidden')" class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner text-left flex justify-between items-center text-slate-500">
+                                    <span>Pilih Spesialisasi...</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                                <div id="specDropdownAdd" class="hidden absolute z-10 w-full mt-2 bg-white border border-gray-100 rounded-2xl shadow-xl max-h-60 overflow-y-auto p-3">
+                                    <div class="grid grid-cols-1 gap-1">
+                                        @foreach ($specializations as $spec)
+                                            <label class="inline-flex items-center p-2 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
+                                                <input type="checkbox" name="specializations[]" value="{{ $spec->id }}" class="form-checkbox text-rose-500 rounded focus:ring-rose-500/20 w-4 h-4">
+                                                <span class="ml-3 text-sm text-slate-700 font-medium">{{ $spec->name }}</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                             <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Spesialisasi</label>
-                                <select name="specialization" required
-                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
-                                    @foreach ($specializations as $spec)
-                                        <option value="{{ $spec->code }}">{{ $spec->name }}</option>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Tipe Klinis</label>
+                                <select name="clinical_type_id" class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner text-slate-500">
+                                    <option value="">Pilih Tipe Klinis (Opsional)</option>
+                                    @foreach ($clinicalTypes as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Nomor STR
-                                    (Lisensi)</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Latar Pendidikan</label>
+                                <input type="text" name="educational_background"
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner"
+                                    placeholder="Opsional">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Nomor STR (Lisensi)</label>
                                 <input type="text" name="license_number" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Pengalaman
-                                    (Tahun)</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Pengalaman (Tahun)</label>
                                 <input type="number" name="experience_years" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Harga per
-                                    Sesi (Rp)</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Harga per Sesi (Rp)</label>
                                 <input type="number" name="price_per_session" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
                             </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Total Sesi</label>
+                                <input type="number" name="total_sessions" value="0"
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Tingkat Kepuasan (%)</label>
+                                <input type="number" name="satisfaction_rate" value="100" max="100" min="0"
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner">
+                            </div>
                             <div class="col-span-2">
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Biografi
-                                    Singkat</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Biografi Singkat</label>
                                 <textarea name="bio" rows="3"
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-rose-500/20 shadow-inner"
                                     placeholder="Tuliskan keahlian dan pendekatan terapi..."></textarea>
@@ -252,32 +280,78 @@
                         {{-- Inputs Section --}}
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="col-span-2">
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Nama
-                                    Lengkap</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Nama Lengkap</label>
                                 <input type="text" name="name" id="edit_name" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Email</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Email</label>
                                 <input type="email" name="email" id="edit_email" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">No.
-                                    STR</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">No. WhatsApp</label>
+                                <input type="text" name="phone" id="edit_phone" required
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
+                            </div>
+                            <div class="col-span-2 relative">
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Spesialisasi (Pilih Satu atau Lebih)</label>
+                                <button type="button" onclick="document.getElementById('specDropdownEdit').classList.toggle('hidden')" class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner text-left flex justify-between items-center text-slate-500">
+                                    <span>Pilih Spesialisasi...</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                                <div id="specDropdownEdit" class="hidden absolute z-10 w-full mt-2 bg-white border border-gray-100 rounded-2xl shadow-xl max-h-60 overflow-y-auto p-3">
+                                    <div class="grid grid-cols-1 gap-1">
+                                        @foreach ($specializations as $spec)
+                                            <label class="inline-flex items-center p-2 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
+                                                <input type="checkbox" name="specializations[]" value="{{ $spec->id }}" id="edit_spec_{{ $spec->id }}" class="form-checkbox text-indigo-500 rounded focus:ring-indigo-500/20 w-4 h-4 edit-specialization-checkbox">
+                                                <span class="ml-3 text-sm text-slate-700 font-medium">{{ $spec->name }}</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Tipe Klinis</label>
+                                <select name="clinical_type_id" id="edit_clinical_type_id" class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner text-slate-500">
+                                    <option value="">Pilih Tipe Klinis (Opsional)</option>
+                                    @foreach ($clinicalTypes as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Latar Pendidikan</label>
+                                <input type="text" name="educational_background" id="edit_educational_background"
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">No. STR</label>
                                 <input type="text" name="license_number" id="edit_license" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Harga
-                                    Sesi</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Pengalaman (Tahun)</label>
+                                <input type="number" name="experience_years" id="edit_experience" required
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Harga Sesi</label>
                                 <input type="number" name="price_per_session" id="edit_price" required
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
                             </div>
                             <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Status
-                                    Akun</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Total Sesi</label>
+                                <input type="number" name="total_sessions" id="edit_total_sessions"
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Tingkat Kepuasan (%)</label>
+                                <input type="number" name="satisfaction_rate" id="edit_satisfaction_rate" max="100" min="0"
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Status Akun</label>
                                 <select name="status" id="edit_status"
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
                                     <option value="active">Active</option>
@@ -286,8 +360,7 @@
                                 </select>
                             </div>
                             <div class="col-span-2">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Biografi</label>
+                                <label class="text-[10px] font-black text-slate-400 uppercase mb-1.5 block ml-1">Biografi</label>
                                 <textarea name="bio" id="edit_bio" rows="3"
                                     class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500/20 shadow-inner"></textarea>
                             </div>
@@ -305,7 +378,7 @@
         </div>
     </div>
 
-    {{-- SCRIPTS (NOTIF & PREVIEW) --}}
+    {{-- SCRIPTS (NOTIF, PREVIEW & MODALS) --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const Toast = Swal.mixin({
@@ -341,7 +414,14 @@
 
         // Modal Toggles
         function toggleModal(id) {
-            document.getElementById(id).classList.toggle('hidden');
+            const modal = document.getElementById(id);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('opacity-100'), 10);
+            } else {
+                modal.classList.remove('opacity-100');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
         }
 
         // Open Edit Modal & Populate Data
@@ -349,15 +429,31 @@
             const form = document.getElementById('formEdit');
             form.action = `/admin/psychologist/${psy.id}`;
 
-            document.getElementById('edit_name').value = psy.name;
-            document.getElementById('edit_email').value = psy.email;
-            document.getElementById('edit_license').value = psy.license_number;
-            document.getElementById('edit_price').value = psy.price_per_session;
-            document.getElementById('edit_status').value = psy.status;
+            document.getElementById('edit_name').value = psy.name || '';
+            document.getElementById('edit_email').value = psy.email || '';
+            document.getElementById('edit_phone').value = psy.phone || '';
+            
+            // Set Specializations Checkboxes
+            document.querySelectorAll('.edit-specialization-checkbox').forEach(cb => cb.checked = false);
+            if (psy.specializations) {
+                psy.specializations.forEach(spec => {
+                    const cb = document.getElementById(`edit_spec_${spec.id}`);
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            document.getElementById('edit_clinical_type_id').value = psy.clinical_type_id || '';
+            document.getElementById('edit_educational_background').value = psy.educational_background || '';
+            document.getElementById('edit_license').value = psy.license_number || '';
+            document.getElementById('edit_experience').value = psy.experience_years || 0;
+            document.getElementById('edit_price').value = psy.price_per_session || 0;
+            document.getElementById('edit_total_sessions').value = psy.total_sessions || 0;
+            document.getElementById('edit_satisfaction_rate').value = psy.satisfaction_rate || 100;
+            document.getElementById('edit_status').value = psy.status || 'active';
             document.getElementById('edit_bio').value = psy.bio || '';
 
             document.getElementById('editImgPreview').src = psy.photo ? `/storage/${psy.photo}` :
-                `https://ui-avatars.com/api/?name=${psy.name}&background=random`;
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(psy.name)}&background=random`;
 
             toggleModal('modalEdit');
         }
@@ -382,15 +478,23 @@
 
         // Show Info SweetAlert
         function showInfo(psy) {
+            let specsHtml = '-';
+            if(psy.specializations && psy.specializations.length > 0) {
+                specsHtml = psy.specializations.map(s => `<span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs">${s.name}</span>`).join(' ');
+            }
+
             Swal.fire({
                 title: `<span class="text-xl font-black">${psy.name}</span>`,
                 html: `
                     <div class="text-left space-y-3 mt-4 text-sm">
-                        <div class="flex justify-between border-b pb-2"><b>Spesialisasi:</b> <span>${psy.specialization}</span></div>
-                        <div class="flex justify-between border-b pb-2"><b>STR:</b> <span>${psy.license_number}</span></div>
-                        <div class="flex justify-between border-b pb-2"><b>Harga/Sesi:</b> <span>Rp ${new Intl.NumberFormat().format(psy.price_per_session)}</span></div>
-                        <div class="flex justify-between border-b pb-2"><b>WhatsApp:</b> <span>${psy.phone}</span></div>
-                        <div class="pt-2 italic text-slate-500">"${psy.bio}"</div>
+                        <div class="flex justify-between border-b pb-2 items-center"><b>Spesialisasi:</b> <div class="flex flex-wrap gap-1 justify-end">${specsHtml}</div></div>
+                        <div class="flex justify-between border-b pb-2"><b>Tipe Klinis:</b> <span>${psy.clinical_type ? psy.clinical_type.name : '-'}</span></div>
+                        <div class="flex justify-between border-b pb-2"><b>Pendidikan:</b> <span class="text-right ml-4">${psy.educational_background || '-'}</span></div>
+                        <div class="flex justify-between border-b pb-2"><b>Statistik:</b> <span>${psy.total_sessions || 0} Sesi (${psy.satisfaction_rate || 100}% Puas)</span></div>
+                        <div class="flex justify-between border-b pb-2"><b>STR:</b> <span>${psy.license_number || '-'}</span></div>
+                        <div class="flex justify-between border-b pb-2"><b>Harga/Sesi:</b> <span>Rp ${new Intl.NumberFormat('id-ID').format(psy.price_per_session || 0)}</span></div>
+                        <div class="flex justify-between border-b pb-2"><b>WhatsApp:</b> <span>${psy.phone || '-'}</span></div>
+                        <div class="pt-2 italic text-slate-500">"${psy.bio || 'Tidak ada biografi.'}"</div>
                     </div>
                 `,
                 confirmButtonColor: '#6366f1',
