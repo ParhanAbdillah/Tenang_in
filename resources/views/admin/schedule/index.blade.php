@@ -37,11 +37,16 @@
                         <input type="hidden" name="psychologist_id" value="{{ $psychologist->id }}">
 
                         <div>
-                            <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Pilih
-                                Hari Kerja</label>
+                            <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Pilih Tanggal</label>
+                            <input type="date" name="date" id="schedule_date" required
+                                class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-indigo-500/20 shadow-inner">
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Pilih Hari Kerja</label>
                             <div class="relative">
-                                <select name="day" required
-                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-indigo-500/20 shadow-inner appearance-none cursor-pointer">
+                                <select name="day" id="schedule_day" required
+                                    class="w-full px-5 py-3.5 bg-slate-50 border-none rounded-2xl text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-indigo-500/20 shadow-inner appearance-none cursor-pointer pointer-events-none opacity-80" tabindex="-1">
                                     <option value="" disabled selected>Pilih Hari...</option>
                                     @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $day)
                                         <option value="{{ $day }}">{{ $day }}</option>
@@ -82,8 +87,7 @@
                     <div class="flex gap-4">
                         <i class="fa-solid fa-circle-info text-indigo-500 mt-1"></i>
                         <p class="text-xs text-indigo-700 leading-relaxed font-medium">
-                            <b>Tips:</b> Pastikan jam selesai lebih besar dari jam mulai. Sistem akan otomatis menandai slot
-                            ini sebagai "Tersedia" untuk calon pasien.
+                            <b>Tips:</b> Pilih tanggal spesifik dan hari kerja, atur jam mulai & selesai. Sistem akan otomatis membuat slot tersedia untuk calon pasien.
                         </p>
                     </div>
                 </div>
@@ -120,8 +124,12 @@
                                                     {{ \Carbon\Carbon::parse($sch->end_time)->format('H:i') }}
                                                 </p>
                                             </div>
-                                            <p class="text-[11px] text-slate-400 font-bold uppercase tracking-widest">
-                                                {{ $sch->day }}</p>
+                                            <p class="text-[11px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">
+                                                {{ $sch->day }} 
+                                                @if($sch->schedule_date)
+                                                    <span class="text-indigo-400">• {{ \Carbon\Carbon::parse($sch->schedule_date)->translatedFormat('d M Y') }}</span>
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
 

@@ -27,22 +27,32 @@ class ScheduleController extends Controller
         // 1. Simpan hasil validasi ke dalam variabel $validated
         $validated = $request->validate([
             'psychologist_id' => 'required|exists:psychologists,id',
+            'date' => 'nullable|date',
             'day' => 'required',
             'start_time' => 'required',
             'end_time' => 'required|after:start_time',
         ]);
 
-        // 2. Logic Profesional: Menghindari jadwal bentrok
-        $exists = PsychologistSchedule::where('psychologist_id', $request->psychologist_id)
-            ->where('day', $request->day)
-            ->where('start_time', $request->start_time)
-            ->exists();
+        // 2. Rename 'date' to 'schedule_date' untuk database field
+        if (isset($validated['date'])) {
+            $validated['schedule_date'] = $validated['date'];
+            unset($validated['date']);
+        }
 
-        if ($exists) {
+        // 3. Logic Profesional: Menghindari jadwal bentrok
+        $query = PsychologistSchedule::where('psychologist_id', $request->psychologist_id)
+            ->where('day', $request->day)
+            ->where('start_time', $request->start_time);
+
+        if ($request->has('date')) {
+            $query->where('schedule_date', $request->date);
+        }
+
+        if ($query->exists()) {
             return redirect()->back()->with('error', 'Jadwal pada jam tersebut sudah ada!');
         }
 
-        // 3. JANGAN gunakan $request->all() karena mengandung '_token' yang bikin error.
+        // 4. JANGAN gunakan $request->all() karena mengandung '_token' yang bikin error.
         // Gunakan $validated yang sudah bersih dari token CSRF.
         PsychologistSchedule::create($validated);
 

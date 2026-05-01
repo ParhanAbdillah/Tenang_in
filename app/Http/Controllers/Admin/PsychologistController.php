@@ -18,6 +18,32 @@ class PsychologistController extends Controller
         return view('admin.psychologist.index', compact('psychologists', 'specializations', 'clinicalTypes'));
     }
 
+    public function userIndex()
+    {
+        // Filter by active status and eager load all necessary relationships including schedules
+        $psychologists = Psychologist::with(['clinicalType', 'specializations', 'schedules' => function($q) {
+            $q->where('is_active', true);
+        }])
+        ->where('status', 'active')
+        ->get();
+        
+        $clinicalTypes = ClinicalType::all();
+        $specializations = Specialization::all();
+        // File: resources/views/landing_page/list_psikolog/index.blade.php
+        return view('landing_page.list_psikolog.index', compact('psychologists', 'clinicalTypes', 'specializations'));
+    }
+
+    public function userDetail($id)
+    {
+        $psychologist = Psychologist::with(['clinicalType', 'specializations', 'schedules' => function($q) {
+            $q->where('is_active', true);
+        }])
+        ->where('status', 'active')
+        ->findOrFail($id);
+
+        return view('landing_page.list_psikolog.detail', compact('psychologist'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

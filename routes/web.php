@@ -62,6 +62,9 @@ Route::get('/chat', function () {
     return view('user.chat.index');
 })->name('user.chat');
 Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+// --- USER ROUTES (Tampilan Card List - image_586b78.jpg) ---
+Route::get('/daftar-psikolog', [PsychologistController::class, 'userIndex'])->name('user.psychologist.index');
+Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'])->name('user.psychologist.detail');
 
 
 Route::prefix('admin')->name('admin.')->group(function () {

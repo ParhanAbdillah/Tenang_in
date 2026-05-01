@@ -44,5 +44,19 @@
         const btn = this.querySelector('button[type="submit"]');
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Memproses...';
+        
+        // Pastikan dropdown hari kerja ikut ter-submit (karena disabled/pointer-events-none kadang menghambat kalau tidak hati-hati, tapi kita pakai readonly via css saja)
+    });
+
+    // Otomatis ubah Hari sesuai dengan Tanggal yang dipilih
+    document.getElementById('schedule_date').addEventListener('change', function() {
+        if (!this.value) return;
+        
+        const dateObj = new Date(this.value);
+        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const dayName = days[dateObj.getDay()];
+        
+        const daySelect = document.getElementById('schedule_day');
+        daySelect.value = dayName;
     });
 </script>

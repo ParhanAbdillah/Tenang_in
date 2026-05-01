@@ -35,4 +35,9 @@ class Psychologist extends Model
     {
         return $this->belongsTo(ClinicalType::class);
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(PsychologistSchedule::class)->orderBy('day')->orderBy('start_time');
+    }
 }
