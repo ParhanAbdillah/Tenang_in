@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ClinicalTypeController;
 use App\Http\Controllers\Admin\MentalHealthTestController;
 use App\Http\Controllers\Admin\PsychologistController;
 use App\Http\Controllers\Admin\ScheduleController;
@@ -8,132 +9,180 @@ use App\Http\Controllers\Admin\SpecializationController;
 use App\Http\Controllers\Admin\WebConfigController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Psychologist\ConsultationController;
+use App\Http\Controllers\Psychologist\MedicalRecordController;
 use App\Http\Controllers\Public\LandingPageController;
 use App\Http\Controllers\Public\TestPsikologiController;
 use App\Http\Controllers\User\ChatController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// --- PUBLIC ROUTES ---
-Route::get('/Test_psikologi', function () {
-    return view('landing_page.test_psikologi');
-})->name('test_psikologi')->withoutMiddleware(['auth', 'admin']);
+
+/*
+|--------------------------------------------------------------------------
+| 1. PUBLIC ROUTES (Tanpa Login)
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
     return view('landing_page.index');
 })->name('home');
-
-
 Route::get('/about', function () {
     return view('landing_page.about');
 })->name('about');
-
-
-
 Route::get('/individual', [LandingPageController::class, 'individual'])->name('individual');
 
-/// 1. Halaman Daftar Utama (Masonry Grid)
+// Test Psikologi Public
 Route::get('/Test_psikologi', [TestPsikologiController::class, 'index'])->name('test_psikologi');
-
-// Halaman Instruksi
 Route::get('/test-psikologi/{id}', [TestPsikologiController::class, 'detail'])->name('tes.detail');
-
-// 3. Halaman Pengerjaan (Halaman Slider/Progress Bar)
-// Halaman Pengerjaan Soal 
 Route::get('/pengerjaan-tes/{id}', [TestPsikologiController::class, 'kerjakan'])->name('tes.kerjakan');
-
-// Pastikan baris ini ada di web.php Anda
-Route::post('/test-psikologi/submit/{id}', [TestPsikologiController::class, 'submit'])->name('user.test.submit');
-
-// Jika ada yang akses submit dengan GET, redirect ke halaman pengerjaan tes
-Route::get('/test-psikologi/submit/{id}', function ($id) {
-    return redirect()->route('tes.kerjakan', $id);
-});
-
-// Route untuk menampilkan hasil tes
 Route::get('/test-psikologi/result/{resultId}', [TestPsikologiController::class, 'result'])->name('user.test.result');
 
-// Halaman Detail/Instruksi
-Route::get('/test-psikologi/{id}', [TestPsikologiController::class, 'detail'])->name('tes.detail');
-
-// Halaman Pengerjaan Soal (Halaman Slider)
-Route::get('/kerjakan-tes/{id}', [TestPsikologiController::class, 'kerjakan'])->name('tes.kerjakan');
-
-// --- USER ROUTES (AFTER LOGIN) ---
-Route::get('/chat', function () {
-    return view('user.chat.index');
-})->name('user.chat');
-Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
-// --- USER ROUTES (Tampilan Card List - image_586b78.jpg) ---
-Route::get('/daftar-psikolog', [PsychologistController::class, 'userIndex'])->name('user.psychologist.index');
-Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'])->name('user.psychologist.detail');
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    // Halaman Dashboard
+
+
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATION ROUTES
+|--------------------------------------------------------------------------
+*/
+
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+// Route logout biasanya diletakkan di luar grup guest
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout')
+    ->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| 2. DASHBOARD BRIDGE (Mengarahkan User Setelah Login)
+|--------------------------------------------------------------------------
+*/
+Route::get('/dashboard', function () {
+    // Pastikan user benar-benar login
+    $user = Auth::user();
+
+    if (!$user) {
+        return redirect()->route('login');
+    }
+
+    $role = strtolower(trim($user->role));
+
+    if ($role === 'admin') {
+        return redirect()->route('admin.dashboard.index');
+    } elseif ($role === 'psychologist') {
+        return redirect()->route('psychologist.dashboard.index');
+    }
+
+    return redirect()->route('home');
+})->middleware(['auth'])->name('dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| 3. ADMIN ROUTES (Prefix: admin)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    // Dashboard Admin
     Route::get('/dashboard', function () {
         return view('admin.dashboard.index');
     })->name('dashboard.index');
 
     // Manajemen Psikolog 
-    Route::get('/psychologist', [PsychologistController::class, 'index'])->name('psychologist.index');
-    Route::post('/psychologist', [PsychologistController::class, 'store'])->name('psychologist.store');
-    Route::put('/psychologist/{id}', [PsychologistController::class, 'update'])->name('psychologist.update');
-    Route::delete('/psychologist/{id}', [PsychologistController::class, 'destroy'])->name('psychologist.destroy');
+    Route::resource('psychologist', PsychologistController::class);
 
-    // Data Master Spesialisasi dan Tipe Klinis
+    // Data Master
     Route::resource('specialization', SpecializationController::class);
-    Route::resource('clinical_type', \App\Http\Controllers\Admin\ClinicalTypeController::class);
+    Route::resource('clinical_type', ClinicalTypeController::class);
 
     // Jadwal Psikolog
-    Route::get('schedule/{psychologist_id}', [ScheduleController::class, 'show'])->name('schedule.show');
-    Route::post('schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
-    Route::delete('schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+    Route::prefix('schedule')->name('schedule.')->group(function () {
+        Route::get('/{psychologist_id}', [ScheduleController::class, 'show'])->name('show');
+        Route::post('/store', [ScheduleController::class, 'store'])->name('store');
+        Route::delete('/{id}', [ScheduleController::class, 'destroy'])->name('destroy');
+    });
 
-    // AI Settings
-    Route::get('ai-settings', [SettingController::class, 'aiConfig'])->name('ai.index');
-    Route::post('ai-settings', [SettingController::class, 'updateAiConfig'])->name('ai.update');
-
+    // Konfigurasi Web & AI
     Route::get('/config', [WebConfigController::class, 'index'])->name('web_config.index');
     Route::post('/config/update-landing', [WebConfigController::class, 'update'])->name('web_config.update');
+    Route::get('/ai-settings', [SettingController::class, 'aiConfig'])->name('ai.index');
+    Route::post('/ai-settings', [SettingController::class, 'updateAiConfig'])->name('ai.update');
 
-    // Manajemen Edukasi (Tes Mental Health)
-    // Manajemen Edukasi (Tes Mental Health)
+    // Manajemen Tes Mental Health
     Route::prefix('mental-health')->name('mental-health.')->group(function () {
         Route::get('/', [MentalHealthTestController::class, 'index'])->name('index');
         Route::post('/store', [MentalHealthTestController::class, 'storeCategory'])->name('categories.store');
         Route::put('/categories/{id}', [MentalHealthTestController::class, 'updateCategory'])->name('categories.update');
         Route::delete('/categories/{id}', [MentalHealthTestController::class, 'destroyCategory'])->name('categories.destroy');
 
-        // Manajemen Indikator (Score Settings)
-        Route::prefix('indicators')->name('indicators.')->group(function () {
-            Route::get('/{category_id}', [MentalHealthTestController::class, 'manageIndicators'])->name('index');
-            Route::post('/{category_id}', [MentalHealthTestController::class, 'storeIndicator'])->name('store');
-            Route::delete('/{id}', [MentalHealthTestController::class, 'destroyIndicator'])->name('destroy');
-        });
-
-        // Group Kelola Pertanyaan
-        Route::prefix('questions')->name('questions.')->group(function () {
-            Route::get('/{id}', [MentalHealthTestController::class, 'showQuestions'])->name('index');
-            Route::post('/{id}', [MentalHealthTestController::class, 'storeQuestion'])->name('store');
-            Route::delete('/{id}', [MentalHealthTestController::class, 'destroyQuestion'])->name('destroy');
-
-            
-        });
+        Route::get('/indicators/{category_id}', [MentalHealthTestController::class, 'manageIndicators'])->name('indicators.index');
+        Route::get('/questions/{id}', [MentalHealthTestController::class, 'showQuestions'])->name('questions.index');
     });
 });
 
+/*
+|--------------------------------------------------------------------------
+| 4. PSYCHOLOGIST ROUTES (Prefix: psychologist)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'psychologist'])->prefix('psychologist')->name('psychologist.')->group(function () {
 
-// --- ROUTE YANG BUTUH LOGIN (Harus di dalam middleware auth) ---
-Route::middleware(['auth'])->group(function () {
+    // Dashboard Utama Psikolog
+    Route::get('/dashboard', function () {
+        return view('psychologist.dashboard.index');
+    })->name('dashboard.index');
 
-    // Pastikan URL ini sinkron dengan yang ada di atribut action form blade Anda
-    Route::post('/mental-health-test/submit', [MentalHealthTestController::class, 'storeUserResponse'])->name('mental-health.submit');
+    // Menu Sesi Konsultasi Saya
+    Route::get('/sesi-konsultasi', [ConsultationController::class, 'index'])->name('consultations.index');
+    Route::post('/consultations/{id}/konfirmasi', [ConsultationController::class, 'konfirmasi'])->name('consultations.konfirmasi');
+    Route::get('/consultations/{id}', [ConsultationController::class, 'show'])->name('consultations.show');
+    Route::post('/consultations/{id}/selesai', [ConsultationController::class, 'selesai'])->name('consultations.selesai');
 
-    // Halaman untuk melihat hasil (GET)
-    Route::get('/mental-health-test/result/{id}', [MentalHealthTestController::class, 'showResult'])->name('user.mental-health.result');
+    // Menu Riwayat Catatan Medis
+    Route::get('/catatan-medis', [MedicalRecordController::class, 'index'])->name('medical_records.index');
+    Route::get('/catatan-medis/{id}', [MedicalRecordController::class, 'show'])->name('medical_records.show');
+
+    // Menu Jadwal Saya
+    Route::get('/jadwal-anda', [App\Http\Controllers\Psychologist\ScheduleController::class, 'index'])->name('schedules.index');
+    Route::post('/jadwal-anda/generate', [App\Http\Controllers\Psychologist\ScheduleController::class, 'generate'])->name('schedules.generate');
+    Route::delete('/jadwal-anda/{id}', [App\Http\Controllers\Psychologist\ScheduleController::class, 'destroy'])->name('schedules.destroy');
+    // Tambahkan route khusus fitur psikolog di sini nanti (Contoh: Jadwal Saya, Konsultasi Masuk)
 });
 
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
+/*
+|--------------------------------------------------------------------------
+| 5. USER / PATIENT ROUTES (Butuh Login)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('user.chat');
+    Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 
-// Auth bawaan Laravel (Biarkan saja, tidak usah dipakai dulu)
+    Route::get('/daftar-psikolog', [PsychologistController::class, 'userIndex'])->name('user.psychologist.index');
+    Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'])->name('user.psychologist.detail');
+
+    Route::post('/test-psikologi/submit/{id}', [TestPsikologiController::class, 'submit'])->name('user.test.submit');
+    Route::post('/mental-health-test/submit', [MentalHealthTestController::class, 'storeUserResponse'])->name('mental-health.submit');
+
+    // User Profile
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+/*
+|--------------------------------------------------------------------------
+| 6. AUTHENTICATION ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 require __DIR__ . '/auth.php';

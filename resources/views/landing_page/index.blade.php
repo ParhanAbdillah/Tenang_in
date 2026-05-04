@@ -20,7 +20,7 @@
                         </a>
                     </div>
                     <div class="relative hidden md:block">
-                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80"
+                        <img src="{{ asset('img/foto_login.jpeg') }}"
                             alt="Psikolog Tenang-in"
                             class="rounded-2xl shadow-2xl relative z-10 w-full h-[400px] object-cover">
                         <div
@@ -48,7 +48,7 @@
                         </a>
                     </div>
                     <div class="relative hidden md:block">
-                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80"
+                        <img src="{{ asset('img/foto_landing.jpeg') }}"
                             alt="Psikolog Tenang-in"
                             class="rounded-2xl shadow-2xl relative z-10 w-full h-[400px] object-cover">
                         <div

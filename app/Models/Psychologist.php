@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Psychologist extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'phone',
@@ -40,4 +41,6 @@ class Psychologist extends Model
     {
         return $this->hasMany(PsychologistSchedule::class)->orderBy('day')->orderBy('start_time');
     }
+
+    
 }

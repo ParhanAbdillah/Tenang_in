@@ -3,23 +3,43 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Psychologist;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Buat Akun Admin (Jika belum ada)
+        User::updateOrCreate(
+            ['email' => 'admin@tenang.in'],
+            [
+                'name' => 'Admin Tenang',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // 2. Cari data Psikolog yang sudah ada di database (Misal berdasarkan Lisensi/STR)
+        // Kita ambil contoh Dr. Ikhsan Hidayat yang ada di gambar kamu
+        $existingPsychologist = Psychologist::where('license_number', 'STR-2000-7000')->first();
+
+        if ($existingPsychologist) {
+            // 3. Buat Akun User untuk Psikolog tersebut
+            $user = User::updateOrCreate(
+                ['email' => 'ikhsan@gmail.com'],
+                [
+                    'name' => 'Dr. Ikhsan Hidayat',
+                    'password' => Hash::make('password'),
+                    'role' => 'psychologist',
+                ]
+            );
+
+            // 4. Update data Psikolog agar terhubung ke User ID yang baru dibuat
+            $existingPsychologist->update([
+                'user_id' => $user->id
+            ]);
+        }
     }
 }

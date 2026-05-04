@@ -18,19 +18,44 @@ class PsychologistController extends Controller
         return view('admin.psychologist.index', compact('psychologists', 'specializations', 'clinicalTypes'));
     }
 
-    public function userIndex()
+    public function userIndex(Request $request)
     {
+        $prices = [
+            'basic' => [
+                'min' => \App\Models\WebConfig::get('price_basic_min', 20000),
+                'max' => \App\Models\WebConfig::get('price_basic_max', 50000),
+            ],
+            'essential' => [
+                'min' => \App\Models\WebConfig::get('price_essential_min', 60000),
+                'max' => \App\Models\WebConfig::get('price_essential_max', 150000),
+            ],
+            'premium' => [
+                'min' => \App\Models\WebConfig::get('price_premium_min', 200000),
+                'max' => \App\Models\WebConfig::get('price_premium_max', 500000),
+            ],
+        ];
+
         // Filter by active status and eager load all necessary relationships including schedules
         $psychologists = Psychologist::with(['clinicalType', 'specializations', 'schedules' => function($q) {
             $q->where('is_active', true);
         }])
         ->where('status', 'active')
         ->get();
+
+        foreach($psychologists as $p) {
+            if ($p->price_per_session >= $prices['premium']['min']) {
+                $p->service_type = 'premium';
+            } elseif ($p->price_per_session >= $prices['essential']['min']) {
+                $p->service_type = 'essential';
+            } else {
+                $p->service_type = 'basic';
+            }
+        }
         
         $clinicalTypes = ClinicalType::all();
         $specializations = Specialization::all();
         // File: resources/views/landing_page/list_psikolog/index.blade.php
-        return view('landing_page.list_psikolog.index', compact('psychologists', 'clinicalTypes', 'specializations'));
+        return view('landing_page.list_psikolog.index', compact('psychologists', 'clinicalTypes', 'specializations', 'prices'));
     }
 
     public function userDetail($id)

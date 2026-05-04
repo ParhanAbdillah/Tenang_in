@@ -121,7 +121,7 @@
                             <br>
                             <span class="text-slate-400 text-xs">per Sesi</span>
                         </div>
-                        <a href="#"
+                        <a href="{{ route('user.psychologist.index', ['service' => 'basic']) }}"
                             class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">
                             Cari Psikolog
                         </a>
@@ -157,7 +157,7 @@
                             <br>
                             <span class="text-slate-400 text-xs">per Sesi</span>
                         </div>
-                        <a href="#"
+                        <a href="{{ route('user.psychologist.index', ['service' => 'essential']) }}"
                             class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">
                             Cari Psikolog
                         </a>
@@ -190,7 +190,7 @@
                             <br>
                             <span class="text-slate-400 text-xs">per Sesi</span>
                         </div>
-                        <a href="#"
+                        <a href="{{ route('user.psychologist.index', ['service' => 'premium']) }}"
                             class="btn-booking inline-block w-full py-3 mb-8 rounded-full text-white font-bold shadow-md">
                             Cari Psikolog
                         </a>

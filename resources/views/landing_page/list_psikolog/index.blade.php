@@ -3,12 +3,13 @@
     @include('landing_page.navbar')
 
     <div class="bg-gray-50 min-h-screen pb-20 pt-28">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" x-data="{ 
-            activeTab: 'semua', 
-            searchQuery: '',
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" x-data='{ 
+            activeTab: "semua", 
+            searchQuery: "",
             selectedTypes: [],
-            selectedSpecs: []
-        }">
+            selectedSpecs: [],
+            selectedServices: {!! json_encode(request()->query("service") ? [request()->query("service")] : ["essential", "premium", "basic"]) !!}
+        }'>
             
             <div class="flex flex-col lg:flex-row gap-8">
                 
@@ -27,15 +28,15 @@
                                     <p class="text-xs text-gray-500 font-semibold mb-2 ml-1">e-Counseling</p>
                                     <div class="space-y-2 ml-2">
                                         <label class="flex items-center gap-3 cursor-pointer group">
-                                            <input type="checkbox" checked class="rounded border-gray-300 text-[#0A4D68] focus:ring-[#0A4D68] w-4 h-4 transition-colors">
+                                            <input type="checkbox" value="essential" x-model="selectedServices" class="rounded border-gray-300 text-[#0A4D68] focus:ring-[#0A4D68] w-4 h-4 transition-colors">
                                             <span class="text-sm text-gray-600 group-hover:text-[#0A4D68] transition-colors">Essential</span>
                                         </label>
                                         <label class="flex items-center gap-3 cursor-pointer group">
-                                            <input type="checkbox" checked class="rounded border-gray-300 text-[#0A4D68] focus:ring-[#0A4D68] w-4 h-4 transition-colors">
+                                            <input type="checkbox" value="premium" x-model="selectedServices" class="rounded border-gray-300 text-[#0A4D68] focus:ring-[#0A4D68] w-4 h-4 transition-colors">
                                             <span class="text-sm text-gray-600 group-hover:text-[#0A4D68] transition-colors">Premium</span>
                                         </label>
                                         <label class="flex items-center gap-3 cursor-pointer group">
-                                            <input type="checkbox" checked class="rounded border-gray-300 text-[#0A4D68] focus:ring-[#0A4D68] w-4 h-4 transition-colors">
+                                            <input type="checkbox" value="basic" x-model="selectedServices" class="rounded border-gray-300 text-[#0A4D68] focus:ring-[#0A4D68] w-4 h-4 transition-colors">
                                             <span class="text-sm text-gray-600 group-hover:text-[#0A4D68] transition-colors">Basic</span>
                                         </label>
                                     </div>
@@ -189,12 +190,14 @@
                              x-data="{
                                 name: '{{ strtolower(addslashes($psikolog->name)) }}',
                                 typeId: '{{ $psikolog->clinical_type_id }}',
-                                specs: [{{ $psikolog->specializations->pluck('id')->implode(',') }}]
+                                specs: [{{ $psikolog->specializations->pluck('id')->implode(',') }}],
+                                serviceType: '{{ $psikolog->service_type }}'
                              }"
                              x-show="
                                 (searchQuery === '' || name.includes(searchQuery.toLowerCase())) &&
                                 (selectedTypes.length === 0 || selectedTypes.includes(typeId)) &&
-                                (selectedSpecs.length === 0 || specs.some(s => selectedSpecs.includes(s.toString())))
+                                (selectedSpecs.length === 0 || specs.some(s => selectedSpecs.includes(s.toString()))) &&
+                                (selectedServices.length === 0 || selectedServices.includes(serviceType))
                              ">
                             
                             <div class="flex flex-col md:flex-row items-center md:items-start gap-6 w-full">

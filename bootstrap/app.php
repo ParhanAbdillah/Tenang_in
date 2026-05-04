@@ -13,12 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => \App\Http\Middleware\IsAdmin::class,
+            'psychologist' => \App\Http\Middleware\IsPsychologist::class,
         ]);
 
         // Tambahkan ini untuk mengatur tujuan setelah login
         $middleware->redirectTo(
             guests: '/login',
-            users: '/mental-health-test/1', // Arahkan langsung ke halaman tes user
+            users: '/dashboard', // Arahkan ke jembatan dashboard agar di-redirect sesuai role
         );
         
     })

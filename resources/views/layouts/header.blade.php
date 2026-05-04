@@ -18,11 +18,11 @@
         </div>
         
         <div class="flex items-center gap-3">
-            <img src="https://ui-avatars.com/api/?name=Muhamad+Parhan&background=4F46E5&color=fff"
-                class="w-10 h-10 rounded-full object-cover shadow-sm" alt="Profile">
+            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=4F46E5&color=fff"
+                class="w-10 h-10 rounded-full object-cover shadow-sm shrink-0" alt="Profile">
             <div class="hidden md:block">
-                <p class="text-sm font-bold text-gray-900 leading-tight">Muhamad Parhan.A</p>
-                <p class="text-[11px] text-gray-500 font-medium">Administrator</p>
+                <p class="text-sm font-bold text-gray-900 leading-tight truncate">{{ auth()->user()->name }}</p>
+                <p class="text-[11px] text-gray-500 font-medium capitalize">{{ auth()->user()->role }}</p>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ class IsAdmin
         return $next($request);
     }
 
-    // Ubah '/dashboard' menjadi '/' atau '/login'
-   return redirect()->route('admin.dashboard.index')->with('error', 'Anda tidak memiliki akses admin.');
+    // Redirect ke jembatan dashboard agar disesuaikan dengan role masing-masing
+   return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki akses admin.');
 }
 }

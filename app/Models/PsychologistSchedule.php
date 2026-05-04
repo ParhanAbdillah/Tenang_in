@@ -12,5 +12,7 @@ class PsychologistSchedule extends Model
         'schedule_date',
         'start_time',
         'end_time',
+        'session_interval',
+        'is_active',
     ];
 }

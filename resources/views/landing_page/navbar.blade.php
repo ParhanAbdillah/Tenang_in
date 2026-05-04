@@ -96,12 +96,12 @@
 
             <a href="{{ route('test_psikologi') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('test_psikologi') ? 'text-[#D98324]' : '' }}">Tes Psikologi</a>
             <a href="{{ route('about') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('about') ? 'text-[#D98324]' : '' }}">Tentang Kami</a>
-            <a href="#" class="hover:text-[#D98324] transition-colors py-2">List Psikolog</a>
+            <a href="{{ route('user.psychologist.index') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('user.psychologist.index', 'user.psychologist.detail') ? 'text-[#D98324]' : '' }}">List Psikolog</a>
         </div>
 
         <div class="flex items-center gap-3">
             <a href="#" class="bg-[#D98324] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#b86d1d] transition-all shadow-sm">Booking Sesi</a>
-            <a href="#" class="bg-[#0A4D68] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#083a4f] transition-all shadow-sm">Masuk</a>
+            <a href="{{ route('login') }}" class="bg-[#0A4D68] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#083a4f] transition-all shadow-sm">Masuk</a>
         </div>
     </div>
 </nav>
