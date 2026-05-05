@@ -1,28 +1,29 @@
-<aside class="w-64 bg-white border-r border-gray-200 flex flex-col sticky top-0 h-screen overflow-y-auto">
+<aside class="w-64 bg-white border-r border-gray-200 flex flex-col sticky top-0 h-screen">
     <!-- Logo -->
-    <div class="p-6 flex items-center gap-3">
-        <div class="w-10 h-10 bg-rose-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">T
+    <div class="p-6 flex items-center gap-2">
+        <div class="w-8 h-8 bg-[#0A4D68] rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold italic text-lg">T</span>
         </div>
-        <span class="text-xl font-bold tracking-tight">Tenang.in</span>
+        <span class="text-2xl font-extrabold tracking-tight text-[#0A4D68]">Tenang.in</span>
     </div>
 
     <!-- User Profile Card -->
     <div class="px-4 mb-6">
-        <div class="bg-rose-50 p-3 rounded-xl flex items-center gap-3 border border-rose-100">
-            <div class="w-10 h-10 rounded-full bg-rose-200 overflow-hidden shrink-0">
-                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=FDA4AF&color=fff"
+        <div class="bg-[#EBF5F8] p-3 rounded-xl flex items-center gap-3 border border-[#2B82A5]/20">
+            <div class="w-10 h-10 rounded-full bg-[#2B82A5]/20 overflow-hidden shrink-0">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=0A4D68&color=fff"
                     alt="{{ auth()->user()->name }}">
             </div>
             <div class="overflow-hidden">
                 <p class="text-sm font-bold truncate">{{ auth()->user()->name }}</p>
-                <p class="text-xs text-rose-600 font-medium capitalize">{{ auth()->user()->role }}</p>
+                <p class="text-xs text-[#0A4D68] font-medium capitalize">{{ auth()->user()->role }}</p>
             </div>
-            <i class="fa-solid fa-chevron-down ml-auto text-xs text-rose-400"></i>
+            <i class="fa-solid fa-chevron-down ml-auto text-xs text-[#0A4D68]/60"></i>
         </div>
     </div>
 
     <!-- Navigation Menu -->
-    <nav class="flex-1 px-4 space-y-1">
+    <nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
         <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Main Menu</p>
 
         {{-- Dashboard (Bisa diakses keduanya) --}}
@@ -116,7 +117,7 @@
     <div class="p-4 border-t border-gray-100">
         <a href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-            class="flex items-center gap-3 px-3 py-2.5 text-rose-600 hover:bg-rose-50 rounded-lg font-semibold text-sm transition-all">
+            class="flex items-center gap-3 px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg font-semibold text-sm transition-all">
             <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">

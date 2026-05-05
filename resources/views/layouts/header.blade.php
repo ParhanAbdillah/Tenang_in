@@ -9,16 +9,16 @@
         <div class="flex items-center gap-2 pr-4 border-r border-gray-100">
             <button class="p-2 text-gray-400 hover:bg-gray-50 rounded-lg transition-all relative">
                 <i class="fa-solid fa-comment-dots"></i>
-                <span class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-[#D98324] rounded-full border-2 border-white"></span>
             </button>
             <button class="p-2 text-gray-400 hover:bg-gray-50 rounded-lg transition-all relative">
                 <i class="fa-solid fa-bell"></i>
-                <span class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-[#D98324] rounded-full border-2 border-white"></span>
             </button>
         </div>
         
         <div class="flex items-center gap-3">
-            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=4F46E5&color=fff"
+            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=0A4D68&color=fff"
                 class="w-10 h-10 rounded-full object-cover shadow-sm shrink-0" alt="Profile">
             <div class="hidden md:block">
                 <p class="text-sm font-bold text-gray-900 leading-tight truncate">{{ auth()->user()->name }}</p>

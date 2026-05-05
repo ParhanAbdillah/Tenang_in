@@ -11,7 +11,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9fa; }
-        .sidebar-active { background-color: #fef2f2; color: #b91c1c; border-right: 4px solid #b91c1c; }
+        .sidebar-active { background-color: #EBF5F8; color: #0A4D68; border-right: 4px solid #0A4D68; }
+        
+        /* Custom Scrollbar for Navigation */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
     </style>
     <!-- Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -162,12 +162,12 @@ Route::middleware(['auth', 'psychologist'])->prefix('psychologist')->name('psych
 | 5. USER / PATIENT ROUTES (Butuh Login)
 |--------------------------------------------------------------------------
 */
+Route::get('/daftar-psikolog', [PsychologistController::class, 'userIndex'])->name('user.psychologist.index');
+Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'])->name('user.psychologist.detail');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index'])->name('user.chat');
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
-
-    Route::get('/daftar-psikolog', [PsychologistController::class, 'userIndex'])->name('user.psychologist.index');
-    Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'])->name('user.psychologist.detail');
 
     Route::post('/test-psikologi/submit/{id}', [TestPsikologiController::class, 'submit'])->name('user.test.submit');
     Route::post('/mental-health-test/submit', [MentalHealthTestController::class, 'storeUserResponse'])->name('mental-health.submit');

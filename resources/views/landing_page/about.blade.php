@@ -41,7 +41,7 @@
                     <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-rose-500 opacity-30"></div>
                     <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" 
                          alt="Team Meeting" 
-                         class="rounded-[40px] shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000">
+                         class="rounded-[40px] shadow-2xl transition-all duration-1000">
                 </div>
             </div>
             <div class="w-full md:w-1/2">
@@ -84,7 +84,7 @@
                     <div class="relative overflow-hidden rounded-[32px] mb-6 bg-slate-200 aspect-[3/4] shadow-md">
                         <img src="{{ \App\Models\WebConfig::get('team_1_image') ? asset('storage/' . \App\Models\WebConfig::get('team_1_image')) : 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400' }}" 
                              alt="{{ \App\Models\WebConfig::get('team_1_name', 'Dr. Muhamad Parhan Abdillah') }}" 
-                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 text-left">
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 text-left">
                     </div>
                     <h4 class="text-xl font-bold mb-1 text-slate-900">{{ \App\Models\WebConfig::get('team_1_name', 'Dr. Muhamad Parhan Abdillah') }}</h4>
                     <p class="text-sm text-rose-500 font-semibold uppercase tracking-wider mb-2 text-left">{{ \App\Models\WebConfig::get('team_1_title', 'CEO') }}</p>
@@ -96,7 +96,7 @@
                     <div class="relative overflow-hidden rounded-[32px] mb-6 bg-slate-200 aspect-[3/4] shadow-md">
                         <img src="{{ \App\Models\WebConfig::get('team_2_image') ? asset('storage/' . \App\Models\WebConfig::get('team_2_image')) : 'https://images.unsplash.com/photo-1567532939604-b6c5b0adcc06?auto=format&fit=crop&q=80&w=400' }}" 
                              alt="{{ \App\Models\WebConfig::get('team_2_name', 'Siska Amelia, M.Psi') }}" 
-                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 text-left">
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 text-left">
                     </div>
                     <h4 class="text-xl font-bold mb-1 text-slate-900">{{ \App\Models\WebConfig::get('team_2_name', 'Siska Amelia, M.Psi') }}</h4>
                     <p class="text-sm text-blue-600 font-semibold uppercase tracking-wider mb-2 text-left">{{ \App\Models\WebConfig::get('team_2_title', 'Clinical Director') }}</p>
@@ -108,7 +108,7 @@
                     <div class="relative overflow-hidden rounded-[32px] mb-6 bg-slate-200 aspect-[3/4] shadow-md">
                         <img src="{{ \App\Models\WebConfig::get('team_3_image') ? asset('storage/' . \App\Models\WebConfig::get('team_3_image')) : 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400' }}" 
                              alt="{{ \App\Models\WebConfig::get('team_3_name', 'Budi Setiawan') }}" 
-                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 text-left">
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 text-left">
                     </div>
                     <h4 class="text-xl font-bold mb-1 text-slate-900">{{ \App\Models\WebConfig::get('team_3_name', 'Budi Setiawan') }}</h4>
                     <p class="text-sm text-rose-500 font-semibold uppercase tracking-wider mb-2 text-left">{{ \App\Models\WebConfig::get('team_3_title', 'CTO') }}</p>
@@ -120,7 +120,7 @@
                     <div class="relative overflow-hidden rounded-[32px] mb-6 bg-slate-200 aspect-[3/4] shadow-md">
                         <img src="{{ \App\Models\WebConfig::get('team_4_image') ? asset('storage/' . \App\Models\WebConfig::get('team_4_image')) : 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400' }}" 
                              alt="{{ \App\Models\WebConfig::get('team_4_name', 'Maya Putri') }}" 
-                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 text-left">
+                             class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 text-left">
                     </div>
                     <h4 class="text-xl font-bold mb-1 text-slate-900">{{ \App\Models\WebConfig::get('team_4_name', 'Maya Putri') }}</h4>
                     <p class="text-sm text-blue-600 font-semibold uppercase tracking-wider mb-2 text-left">{{ \App\Models\WebConfig::get('team_4_title', 'Head of Community') }}</p>

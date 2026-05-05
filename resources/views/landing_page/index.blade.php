@@ -113,7 +113,7 @@
                             online dengan durasi 60 menit/sesi.
                         </p>
                         <div class="mt-auto">
-                            <a href="#"
+                            <a href="   "
                                 class="inline-flex items-center gap-2 bg-[#4392B3] group-hover:bg-[#D98324] text-white px-8 py-3 rounded-full font-bold text-sm transition-all duration-300">
                                 Mulai Konseling <i class="fas fa-arrow-right text-xs"></i>
                             </a>
