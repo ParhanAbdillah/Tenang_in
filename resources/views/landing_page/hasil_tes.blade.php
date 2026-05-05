@@ -92,11 +92,11 @@
                             Tes Ulang
                         </a>
 
-                        <button
+                        <a href="{{ route('user.psychologist.index') }}"
                             class="flex-1 py-4 text-center bg-[#D98324] text-white rounded-full font-bold shadow-xl hover:scale-105 hover:bg-[#c4721d] transition-all flex items-center justify-center gap-2">
                             <i class="fas fa-comments"></i>
                             Konsultasi Sekarang
-                        </button>
+                        </a>
                     </div>
                 </div>
 

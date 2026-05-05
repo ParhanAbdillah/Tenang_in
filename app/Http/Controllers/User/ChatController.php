@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
+    public function index()
+    {
+        return view('patient.chat.index');
+    }
+
     public function sendMessage(Request $request)
     {
         try {
@@ -24,10 +29,11 @@ class ChatController extends Controller
             }
 
             // 2. Ambil data psikolog aktif sebagai referensi AI
-            $psychologists = Psychologist::where('status', 'active')
-                ->get(['name', 'specialization', 'bio'])
+            $psychologists = Psychologist::with('specializations')->where('status', 'active')
+                ->get()
                 ->map(function ($p) {
-                    return "- Nama: {$p->name}, Spesialis: {$p->specialization}, Bio: {$p->bio}";
+                    $specs = $p->specializations->pluck('name')->implode(', ');
+                    return "- Nama: {$p->name}, Spesialis: {$specs}, Bio: {$p->bio}";
                 })->implode("\n");
 
             $userMessage = trim($request->message ?? '');

@@ -22,7 +22,69 @@
         tabType: 'Online',
         basePrice: {{ $psychologist->price_per_session ?? 299000 }},
         price: {{ $psychologist->price_per_session ?? 299000 }},
-        step: 1
+        step: 1,
+        loading: false,
+
+        async initiateBooking() {
+            @if(!auth()->check())
+                window.location.href = '{{ route('login') }}';
+                return;
+            @endif
+
+            if (this.step < 3 || this.loading) return;
+
+            this.loading = true;
+
+            try {
+                // selectedTime format: schedule_id-startTime
+                const [scheduleId, startTime] = this.selectedTime.split('-');
+
+                const response = await fetch('{{ route('booking.checkout') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        psychologist_id: '{{ $psychologist->id }}',
+                        schedule_id: scheduleId,
+                        selected_date: this.selectedDate,
+                        selected_time: startTime
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.snap_token) {
+                    // MEMICU POP-UP MIDTRANS
+                    window.snap.pay(result.snap_token, {
+                        onSuccess: (res) => {
+                            alert('Pembayaran Berhasil!');
+                            window.location.href = '{{ route('user.dashboard.index') }}';
+                        },
+                        onPending: (res) => {
+                            alert('Pembayaran tertunda, silakan selesaikan pembayaran Anda.');
+                            window.location.href = '{{ route('user.dashboard.index') }}';
+                        },
+                        onError: (res) => {
+                            alert('Pembayaran Gagal!');
+                            this.loading = false;
+                        },
+                        onClose: () => {
+                            this.loading = false;
+                        }
+                    });
+                } else {
+                    alert(result.message || 'Gagal mendapatkan token pembayaran.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Gagal menghubungi server. Silakan coba lagi.');
+            } finally {
+                this.loading = false;
+            }
+        }
     }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row gap-6 items-start">
@@ -325,11 +387,12 @@
                             <p class="text-xs text-gray-500">Total</p>
                             <p class="font-bold text-lg text-[#0A4D68]" x-text="step > 0 ? 'Rp ' + new Intl.NumberFormat('id-ID').format(Math.floor(basePrice)) : '-'"></p>
                         </div>
-                        <button @click="if(step === 3) window.location.href='/checkout?date=' + selectedDate + '&time=' + selectedTime" 
-                                :disabled="step < 3" 
-                                :class="step < 3 ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#D98324] hover:bg-[#c47520] active:scale-95 shadow-md'"
-                                class="text-white font-bold py-2.5 px-6 rounded-lg transition-all whitespace-nowrap text-sm">
-                            Buat Janji
+                        <button @click="initiateBooking()" 
+                                :disabled="step < 3 || loading" 
+                                :class="(step < 3 || loading) ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#D98324] hover:bg-[#c47520] active:scale-95 shadow-md'"
+                                class="text-white font-bold py-2.5 px-6 rounded-lg transition-all whitespace-nowrap text-sm flex items-center gap-2">
+                            <i x-show="loading" class="fas fa-spinner fa-spin"></i>
+                            <span x-text="loading ? 'Memproses...' : 'Buat Janji'"></span>
                         </button>
                     </div>
                 </div>
@@ -337,4 +400,7 @@
         </div>
     </div>
 
+@push('scripts')
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+@endpush
 </x-guest-layout>

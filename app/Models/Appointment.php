@@ -19,6 +19,9 @@ class Appointment extends Model
         'jam_janji',
         'status',
         'catatan_keluhan',
+        'order_id',
+        'gross_amount',
+        'snap_token',
     ];
 
     // Relasi ke User (Pasien)

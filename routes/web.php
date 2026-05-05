@@ -37,6 +37,7 @@ Route::get('/Test_psikologi', [TestPsikologiController::class, 'index'])->name('
 Route::get('/test-psikologi/{id}', [TestPsikologiController::class, 'detail'])->name('tes.detail');
 Route::get('/pengerjaan-tes/{id}', [TestPsikologiController::class, 'kerjakan'])->name('tes.kerjakan');
 Route::get('/test-psikologi/result/{resultId}', [TestPsikologiController::class, 'result'])->name('user.test.result');
+Route::post('/test-psikologi/submit/{id}', [TestPsikologiController::class, 'submit'])->name('user.test.submit');
 
 
 
@@ -81,7 +82,7 @@ Route::get('/dashboard', function () {
         return redirect()->route('psychologist.dashboard.index');
     }
 
-    return redirect()->route('home');
+    return redirect()->route('user.dashboard.index');
 })->middleware(['auth'])->name('dashboard');
 
 /*
@@ -166,13 +167,23 @@ Route::get('/daftar-psikolog', [PsychologistController::class, 'userIndex'])->na
 Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'])->name('user.psychologist.detail');
 
 Route::middleware(['auth'])->group(function () {
+    // --- Dashboard & Mood Tracker ---
+    Route::get('/patient/dashboard', function () {
+        return view('patient.dashboard');
+    })->name('user.dashboard.index');
+
+    // Route::post('/mood-tracker', [App\Http\Controllers\Patient\MoodController::class, 'store'])
+    //     ->name('patient.mood.store');
+    
+    // --- Chat & Test (Route yang sudah kamu punya) ---
     Route::get('/chat', [ChatController::class, 'index'])->name('user.chat');
     Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
-
-    Route::post('/test-psikologi/submit/{id}', [TestPsikologiController::class, 'submit'])->name('user.test.submit');
     Route::post('/mental-health-test/submit', [MentalHealthTestController::class, 'storeUserResponse'])->name('mental-health.submit');
 
-    // User Profile
+    // --- Booking & Checkout ---
+    Route::post('/booking/checkout', [App\Http\Controllers\User\BookingController::class, 'checkout'])->name('booking.checkout');
+
+    // --- User Profile ---
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
