@@ -169,8 +169,19 @@ Route::get('/daftar-psikolog/{id}', [PsychologistController::class, 'userDetail'
 Route::middleware(['auth'])->group(function () {
     // --- Dashboard & Mood Tracker ---
     Route::get('/patient/dashboard', function () {
-        return view('patient.dashboard');
+        $upcomingSession = \App\Models\Appointment::with('psikolog')
+            ->where('id_pasien', auth()->id())
+            ->whereIn('status', ['dijadwalkan', 'dikonfirmasi'])
+            ->where('tanggal_janji', '>=', now()->toDateString())
+            ->orderBy('tanggal_janji', 'asc')
+            ->orderBy('jam_janji', 'asc')
+            ->first();
+
+        return view('patient.dashboard', compact('upcomingSession'));
     })->name('user.dashboard.index');
+
+    Route::get('/jadwal-saya', [\App\Http\Controllers\User\PatientScheduleController::class, 'index'])->name('user.schedule.index');
+    Route::get('/jadwal-saya/sesi/{id}', [\App\Http\Controllers\User\PatientScheduleController::class, 'showRoom'])->name('user.schedule.room');
 
     // Route::post('/mood-tracker', [App\Http\Controllers\Patient\MoodController::class, 'store'])
     //     ->name('patient.mood.store');

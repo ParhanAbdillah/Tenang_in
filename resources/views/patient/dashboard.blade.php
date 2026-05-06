@@ -36,36 +36,52 @@
                 <div>
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-2xl font-bold text-gray-800">Sesi Mendatang</h3>
-                        <a href="#" class="text-sm font-semibold text-[#D98324] hover:text-[#b36a1b] transition-colors flex items-center gap-1">
+                        <a href="{{ route('user.schedule.index') }}" class="text-sm font-semibold text-[#D98324] hover:text-[#b36a1b] transition-colors flex items-center gap-1">
                             Lihat Semua <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                     
                     <!-- Card Sesi Mendatang -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row gap-6 items-center">
+                    @if($upcomingSession)
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_8px_30_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row gap-6 items-center">
                         <!-- Date Badge -->
                         <div class="bg-[#EBF5F8] text-[#0A4D68] rounded-2xl p-4 flex flex-col items-center justify-center min-w-[90px] h-[100px] border border-blue-50">
-                            <span class="text-sm font-bold uppercase tracking-wider text-blue-600/80">MEI</span>
-                            <span class="text-4xl font-black">12</span>
+                            <span class="text-sm font-bold uppercase tracking-wider text-blue-600/80">{{ \Carbon\Carbon::parse($upcomingSession->tanggal_janji)->translatedFormat('M') }}</span>
+                            <span class="text-4xl font-black">{{ \Carbon\Carbon::parse($upcomingSession->tanggal_janji)->format('d') }}</span>
                         </div>
                         
                         <!-- Info -->
                         <div class="flex-1 text-center sm:text-left">
                             <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Terkonfirmasi</span>
-                                <span class="text-sm text-gray-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 10:00 - 11:00 WIB</span>
+                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">{{ $upcomingSession->status }}</span>
+                                <span class="text-sm text-gray-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> {{ \Carbon\Carbon::parse($upcomingSession->jam_janji)->format('H:i') }} WIB</span>
                             </div>
-                            <h4 class="text-xl font-bold text-gray-900 mt-2 mb-1">Konseling Individual Basic</h4>
-                            <p class="text-gray-500 text-sm font-medium">bersama <span class="text-[#0A4D68] font-bold">Dr. Ikhsan Hidayat</span></p>
+                            <h4 class="text-xl font-bold text-gray-900 mt-2 mb-1">Konseling Individual</h4>
+                            <p class="text-gray-500 text-sm font-medium">bersama <span class="text-[#0A4D68] font-bold">{{ $upcomingSession->psikolog->name }}</span></p>
                         </div>
                         
                         <!-- Action -->
                         <div class="w-full sm:w-auto">
-                            <button class="w-full sm:w-auto bg-[#0A4D68] hover:bg-[#07364a] text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-blue-900/20 transition-all hover:scale-105 flex items-center justify-center gap-2">
+                            @if($upcomingSession->status == 'dijadwalkan' || $upcomingSession->status == 'dikonfirmasi')
+                            <a href="{{ route('user.schedule.room', $upcomingSession->id) }}" class="w-full sm:w-auto bg-[#0A4D68] hover:bg-[#07364a] text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-blue-900/20 transition-all hover:scale-105 flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-video"></i> Masuk Ruangan
+                            </a>
+                            @else
+                            <button disabled class="w-full sm:w-auto bg-gray-300 text-white px-6 py-3 rounded-xl font-bold cursor-not-allowed flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-clock"></i> Belum Siap
                             </button>
+                            @endif
                         </div>
                     </div>
+                    @else
+                    <div class="bg-white rounded-3xl p-10 border border-dashed border-gray-200 text-center">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300 text-2xl">
+                            <i class="fa-solid fa-calendar-xmark"></i>
+                        </div>
+                        <p class="text-gray-500 font-medium italic">Tidak ada sesi mendatang. Yuk booking sekarang!</p>
+                        <a href="{{ route('user.psychologist.index') }}" class="inline-block mt-4 text-[#0A4D68] font-bold hover:underline underline-offset-4">Cari Psikolog <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+                    </div>
+                    @endif
                 </div>
 
                 <!-- Rekomendasi Psikolog -->

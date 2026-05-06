@@ -26,13 +26,13 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Jam Mulai</label>
-                            <input type="time" name="jam_mulai" required
+                            <input type="time" name="jam_mulai" id="jam_mulai" required
                                 class="w-full rounded-xl border-gray-100 focus:ring-indigo-500 focus:border-indigo-500 text-sm shadow-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Jam Selesai</label>
-                            <input type="time" name="jam_selesai" required
-                                class="w-full rounded-xl border-gray-100 focus:ring-indigo-500 focus:border-indigo-500 text-sm shadow-sm">
+                            <input type="time" name="jam_selesai" id="jam_selesai" required
+                                class="w-full rounded-xl border-gray-100 focus:ring-indigo-500 focus:border-indigo-500 text-sm shadow-sm bg-gray-50">
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
 
                 <div class="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-100">
                     <p class="text-[11px] text-blue-700 leading-relaxed">
-                        <strong>Tips:</strong> Sistem akan otomatis membagi rentang waktu Anda menjadi slot per 60 menit.
+                        <strong>Tips:</strong> Sistem akan otomatis membagi rentang waktu Anda menjadi slot per 60 menit. Jam Selesai akan terisi otomatis 1 jam setelah Jam Mulai.
                     </p>
                 </div>
             </div>
@@ -98,6 +98,35 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jamMulaiInput = document.getElementById('jam_mulai');
+        const jamSelesaiInput = document.getElementById('jam_selesai');
+
+        jamMulaiInput.addEventListener('change', function() {
+            if (this.value) {
+                // Parse time
+                const [hours, minutes] = this.value.split(':').map(Number);
+                
+                // Add 60 minutes (1 hour)
+                let newHours = hours + 1;
+                let newMinutes = minutes;
+
+                // Handle overflow past midnight
+                if (newHours >= 24) {
+                    newHours = newHours % 24;
+                }
+
+                // Format back to HH:MM
+                const formattedHours = String(newHours).padStart(2, '0');
+                const formattedMinutes = String(newMinutes).padStart(2, '0');
+                
+                jamSelesaiInput.value = `${formattedHours}:${formattedMinutes}`;
+            }
+        });
+    });
+</script>
+
 <!-- SweetAlert Notifikasi -->
 @if(session('success'))
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -108,6 +137,38 @@
             text: "{{ session('success') }}",
             showConfirmButton: false,
             timer: 2500,
+            background: '#ffffff',
+            customClass: {
+                title: 'font-bold text-gray-800',
+                popup: 'rounded-3xl'
+            }
+        });
+    </script>
+@endif
+
+@if(session('error'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "{{ session('error') }}",
+            background: '#ffffff',
+            customClass: {
+                title: 'font-bold text-gray-800',
+                popup: 'rounded-3xl'
+            }
+        });
+    </script>
+@endif
+
+@if($errors->any())
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Validasi Gagal',
+            text: "{{ $errors->first() }}",
             background: '#ffffff',
             customClass: {
                 title: 'font-bold text-gray-800',

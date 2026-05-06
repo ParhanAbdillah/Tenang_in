@@ -8,6 +8,7 @@ use App\Models\MedicalRecord;
 use id;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ConsultationController extends Controller
 {
@@ -37,9 +38,16 @@ class ConsultationController extends Controller
             return back()->with('error', 'Akses ditolak.');
         }
 
-        $janji->update(['status' => 'dikonfirmasi']);
+        // Generate Jitsi Link
+        $roomName = 'TenangIn-' . $janji->id . '-' . Str::random(10);
+        $jitsiLink = "https://meet.jit.si/" . $roomName;
 
-        return back()->with('success', 'Janji temu berhasil dikonfirmasi!');
+        $janji->update([
+            'status' => 'dijadwalkan',
+            'link_video_call' => $jitsiLink
+        ]);
+
+        return back()->with('success', 'Janji temu berhasil dikonfirmasi dan link video call telah dibuat!');
     }
 
     public function show($id)

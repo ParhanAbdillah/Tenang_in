@@ -16,6 +16,7 @@
                         class="rounded-xl border-gray-200 text-sm focus:ring-indigo-500 focus:border-indigo-500 shadow-sm">
                         <option value="">Semua Status</option>
                         <option value="menunggu" {{ request('status') == 'menunggu' ? 'selected' : '' }}>Menunggu Konfirmasi</option>
+                        <option value="dijadwalkan" {{ request('status') == 'dijadwalkan' ? 'selected' : '' }}>Dijadwalkan</option>
                         <option value="dikonfirmasi" {{ request('status') == 'dikonfirmasi' ? 'selected' : '' }}>Dikonfirmasi</option>
                         <option value="selesai" {{ request('status') == 'selesai' ? 'selected' : '' }}>Selesai</option>
                         <option value="dibatalkan" {{ request('status') == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
@@ -62,6 +63,7 @@
                                 @php
                                     $color = [
                                         'menunggu' => 'bg-yellow-100 text-yellow-700 border-yellow-200',
+                                        'dijadwalkan' => 'bg-green-100 text-green-700 border-green-200',
                                         'dikonfirmasi' => 'bg-blue-100 text-blue-700 border-blue-200',
                                         'selesai' => 'bg-green-100 text-green-700 border-green-200',
                                         'dibatalkan' => 'bg-red-100 text-red-700 border-red-200',
@@ -85,18 +87,24 @@
                                             <i class="fa-solid fa-check mr-1"></i> Konfirmasi
                                         </button>
                                     </form>
-                                @elseif($item->status === 'dikonfirmasi')
+                                @elseif($item->status === 'dijadwalkan' || $item->status === 'dikonfirmasi')
                                     @php
                                         $hariIni = \Carbon\Carbon::today()->format('Y-m-d');
                                         $isHariIni = $item->tanggal_janji == $hariIni;
                                     @endphp
 
-                                    <a href="{{ $isHariIni ? route('psychologist.consultations.show', $item->id) : '#' }}"
-                                        class="{{ $isHariIni ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-300 cursor-not-allowed' }} text-white px-5 py-2 rounded-xl text-sm transition transform {{ $isHariIni ? 'hover:scale-105 shadow-md font-bold' : '' }} inline-block">
-                                        <i class="fa-solid fa-comments mr-1"></i> {{ $isHariIni ? 'Buka Sesi' : 'Belum Waktunya' }}
-                                    </a>
-                                    @if(!$isHariIni)
-                                        <p class="text-[9px] text-gray-400 mt-1 italic uppercase font-bold tracking-tighter">Hanya tersedia sesuai tanggal</p>
+                                    @if($isHariIni && $item->link_video_call)
+                                        <a href="{{ route('psychologist.consultations.show', $item->id) }}"
+                                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-sm transition transform hover:scale-105 shadow-md font-bold inline-block">
+                                            <i class="fa-solid fa-video mr-1"></i> Buka Sesi
+                                        </a>
+                                    @else
+                                        <button disabled class="bg-gray-300 text-white px-5 py-2 rounded-xl text-sm cursor-not-allowed inline-block">
+                                            <i class="fa-solid fa-clock mr-1"></i> {{ $isHariIni ? 'Belum Ada Link' : 'Belum Waktunya' }}
+                                        </button>
+                                        @if(!$isHariIni)
+                                            <p class="text-[9px] text-gray-400 mt-1 italic uppercase font-bold tracking-tighter">Hanya tersedia sesuai tanggal</p>
+                                        @endif
                                     @endif
                                 @elseif($item->status === 'selesai')
                                     <div class="flex flex-col items-center">

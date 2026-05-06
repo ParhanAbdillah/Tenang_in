@@ -31,7 +31,21 @@ class BookingController extends Controller
             $user = Auth::user();
             $psychologist = Psychologist::findOrFail($request->psychologist_id);
 
-            // 2. Buat Order ID Unik
+            // 2. Cek Double Booking
+            $existingAppointment = Appointment::where('id_psikolog', $request->psychologist_id)
+                ->where('tanggal_janji', $request->selected_date)
+                ->where('jam_janji', $request->selected_time)
+                ->whereIn('status', ['menunggu', 'dijadwalkan', 'dikonfirmasi'])
+                ->first();
+
+            if ($existingAppointment) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maaf, jadwal ini baru saja diambil oleh orang lain. Silakan pilih waktu lain.'
+                ], 422);
+            }
+
+            // 3. Buat Order ID Unik
             $orderId = 'TRX-' . strtoupper(Str::random(10));
             $grossAmount = $psychologist->price_per_session ?? 299000;
 

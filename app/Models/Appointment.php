@@ -22,6 +22,7 @@ class Appointment extends Model
         'order_id',
         'gross_amount',
         'snap_token',
+        'link_video_call',
     ];
 
     // Relasi ke User (Pasien)

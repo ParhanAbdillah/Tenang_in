@@ -26,6 +26,7 @@
             @if(auth()->check() && auth()->user()->role == 'user')
                 <a href="{{ route('user.dashboard.index') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('user.dashboard.index') ? 'text-[#D98324]' : '' }}">Dashboard</a>
                 <a href="{{ route('user.psychologist.index') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('user.psychologist.index', 'user.psychologist.detail') ? 'text-[#D98324]' : '' }}">Konseling</a>
+                <a href="{{ route('user.schedule.index') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('user.schedule.index') ? 'text-[#D98324]' : '' }}">Jadwal Saya</a>
 
                 <a href="{{ route('user.chat') }}" class="hover:text-[#D98324] transition-colors py-2 {{ request()->routeIs('user.chat') ? 'text-[#D98324]' : '' }}">AI Teman Cerita</a>
                 <a href="#" class="hover:text-[#D98324] transition-colors py-2">Rekam Medis</a>
